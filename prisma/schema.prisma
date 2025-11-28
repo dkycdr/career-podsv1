@@ -1,0 +1,265 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  name         String?
+  role         UserRole  @default(STUDENT)
+  studentId    String?   @unique // President University student ID
+  major        String?   // Jurusan
+  year         Int?      // Tahun studi (1-4)
+  avatar       String?
+  bio          String?
+  availability String?   // JSON string untuk availability schedule
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  password     String    @default("default_password")
+
+  // Relationships
+  podMemberships PodMembership[]
+  mentorSessions MentorSession[] @relation("MentorSessions")
+  menteeSessions MentorSession[] @relation("MenteeSessions")
+  meetingNotes   MeetingNote[]
+  meetings       Meeting[]
+  progress       Progress[]
+  careerInterests CareerInterest[]
+  skills         UserSkill[]
+  podMaterials   PodMaterial[]
+
+  @@map("users")
+}
+
+model Pod {
+  id          String     @id @default(cuid())
+  name        String
+  description String?
+  status      PodStatus  @default(ACTIVE)
+  maxMembers  Int        @default(5)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  // Relationships
+  memberships PodMembership[]
+  meetings    Meeting[]
+  materials   PodMaterial[]
+
+  @@map("pods")
+}
+
+model PodMembership {
+  id        String           @id @default(cuid())
+  userId    String
+  podId     String
+  role      PodMemberRole    @default(MEMBER)
+  joinedAt  DateTime         @default(now())
+  status    MembershipStatus @default(ACTIVE)
+
+  // Relationships
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  pod  Pod  @relation(fields: [podId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, podId])
+  @@map("pod_memberships")
+}
+
+model Meeting {
+  id            String       @id @default(cuid())
+  podId         String?      // Bisa null untuk meeting general
+  title         String
+  description   String?
+  scheduledAt   DateTime
+  duration      Int          @default(60) // minutes
+  type          MeetingType  @default(VIDEO_CALL)
+  meetingLink   String?
+  status        MeetingStatus @default(SCHEDULED)
+  maxAttendees  Int          @default(6)
+  attendeesCount Int         @default(1)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  // Relationships
+  pod    Pod?          @relation(fields: [podId], references: [id], onDelete: Cascade)
+  user   User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  notes  MeetingNote[]
+
+  @@map("meetings")
+}
+
+model MeetingNote {
+  id        String   @id @default(cuid())
+  meetingId String
+  userId    String
+  content   String
+  createdAt DateTime @default(now())
+
+  // Relationships
+  meeting Meeting @relation(fields: [meetingId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("meeting_notes")
+}
+
+model MentorSession {
+  id          String           @id @default(cuid())
+  mentorId    String           // User dengan role MENTOR
+  menteeId    String           // User dengan role STUDENT
+  title       String
+  description String?
+  scheduledAt DateTime
+  duration    Int              @default(60) // minutes
+  sessionLink String?
+  status      SessionStatus    @default(SCHEDULED)
+  notes       String?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  // Relationships
+  mentor User @relation("MentorSessions", fields: [mentorId], references: [id], onDelete: Cascade)
+  mentee User @relation("MenteeSessions", fields: [menteeId], references: [id], onDelete: Cascade)
+
+  @@map("mentor_sessions")
+}
+
+model Progress {
+  id          String       @id @default(cuid())
+  userId      String
+  skillId     String
+  level       Int          @default(1) // 1-5 scale
+  targetLevel Int          @default(5)
+  notes       String?
+  achievedAt  DateTime?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  // Relationships
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, skillId])
+  @@map("progress")
+}
+
+model CareerInterest {
+  id          String           @id @default(cuid())
+  userId      String
+  industry    String
+  role        String
+  priority    InterestPriority @default(MEDIUM)
+  description String?
+  createdAt   DateTime         @default(now())
+
+  // Relationships
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("career_interests")
+}
+
+model Skill {
+  id          String @id @default(cuid())
+  name        String @unique
+  category    String // technical, soft, business, etc.
+  description String?
+
+  // Relationships
+  userSkills UserSkill[]
+
+  @@map("skills")
+}
+
+model UserSkill {
+  id        String      @id @default(cuid())
+  userId    String
+  skillId   String
+  level     Int         @default(1) // 1-5 scale
+  targetLevel Int        @default(5)
+  createdAt DateTime    @default(now())
+
+  // Relationships
+  user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skill Skill @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, skillId])
+  @@map("user_skills")
+}
+
+model PodMaterial {
+  id          String    @id @default(cuid())
+  podId       String
+  title       String
+  description String?
+  type        String    @default("note") // note, resource, document, link
+  content     String?   // For notes and documents
+  url         String?   // For links and resources
+  uploadedBy  String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Relationships
+  pod  Pod    @relation(fields: [podId], references: [id], onDelete: Cascade)
+  user User   @relation(fields: [uploadedBy], references: [id], onDelete: Cascade)
+
+  @@map("pod_materials")
+}
+
+// Enums
+enum UserRole {
+  STUDENT
+  MENTOR
+  ADMIN
+}
+
+enum PodStatus {
+  ACTIVE
+  INACTIVE
+  COMPLETED
+}
+
+enum PodMemberRole {
+  MEMBER
+  LEAD
+}
+
+enum MembershipStatus {
+  ACTIVE
+  INACTIVE
+  PENDING
+}
+
+enum MeetingStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum SessionStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum InterestPriority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum MeetingType {
+  VIDEO_CALL
+  ONE_ON_ONE
+  GROUP_SESSION
+}

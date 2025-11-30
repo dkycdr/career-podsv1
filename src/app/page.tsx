@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Users, Target, Calendar, Award, BookOpen, UserCheck } from "lucide-react";
+import { Users, Target, Calendar, Award, BookOpen, UserCheck, Zap, ArrowRight } from "lucide-react";
 import OnboardingFlow from "@/components/onboarding/OnboardingFlow";
 
 export default function Home() {
@@ -15,23 +15,26 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-slate-950 text-slate-100">
       {/* Header */}
-      <header className="bg-white shadow-sm">
+      <header className="relative border-b border-cyan-500/10 backdrop-blur-sm sticky top-0 z-50">
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-950 to-slate-900 -z-10" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 gradient-brand rounded-lg flex items-center justify-center glow-md pulse-glow">
                 <Users className="w-6 h-6 text-white" />
               </div>
-              <h1 className="text-2xl font-bold text-gray-900">Career Explorer Pods</h1>
+              <h1 className="text-2xl font-bold gradient-text">Career Explorer Pods</h1>
             </div>
-            <div className="flex space-x-4">
-              <Button variant="outline" onClick={() => window.location.href = '/login'}>
+            <div className="flex space-x-3">
+              <Button variant="ghost" className="text-slate-300 hover:text-cyan-400 hover:bg-cyan-500/10" onClick={() => window.location.href = '/login'}>
                 Sign In
               </Button>
-              <Button onClick={() => setShowOnboarding(true)}>Sign Up Now</Button>
-              <Button variant="outline" onClick={() => window.location.href = '/admin'}>
+              <Button className="gradient-brand btn-glow" onClick={() => setShowOnboarding(true)}>
+                Get Started
+              </Button>
+              <Button variant="ghost" className="text-slate-300 hover:text-purple-400 hover:bg-purple-500/10" onClick={() => window.location.href = '/admin'}>
                 Admin
               </Button>
             </div>
@@ -40,28 +43,39 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 px-4">
-        <div className="max-w-7xl mx-auto text-center">
-          <Badge className="mb-4 bg-blue-100 text-blue-800 hover:bg-blue-200">
-            🎓 President University
+      <section className="relative min-h-[90vh] flex items-center justify-center px-4 overflow-hidden pt-20">
+        {/* Background decorations */}
+        <div className="absolute top-20 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
+        
+        <div className="max-w-5xl mx-auto text-center relative z-10">
+          <Badge className="mb-6 bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 hover:bg-cyan-500/30">
+            <Zap className="w-4 h-4 mr-2" /> Welcome to the Future of Career Exploration
           </Badge>
-          <h2 className="text-5xl font-bold text-gray-900 mb-6">
-            Explore Your Career Together,
-            <span className="text-blue-600"> Shape Your Future</span>
+          
+          <h2 className="text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+            <span className="gradient-text">Explore Careers</span>
+            <br />
+            <span className="text-slate-300">Together, Grow Stronger</span>
           </h2>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            Join small groups of students for structured career exploration.
-            Get mentorship from experts, find the right career path, and build a strong network.
+          
+          <p className="text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+            Join curated pods of students exploring career paths together. Get expert mentorship, discover opportunities, and build meaningful connections.
           </p>
-          <div className="flex justify-center space-x-4">
+          
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Button 
               size="lg" 
-              className="bg-blue-600 hover:bg-blue-700"
+              className="gradient-brand btn-glow h-12 px-8 text-lg font-semibold"
               onClick={() => setShowOnboarding(true)}
             >
-              Start Your Career Journey
+              Start Your Journey <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
-            <Button size="lg" variant="outline">
+            <Button 
+              size="lg" 
+              variant="outline"
+              className="h-12 px-8 text-lg border-cyan-500/30 text-cyan-300 hover:bg-cyan-500/10"
+            >
               Learn More
             </Button>
           </div>
@@ -69,196 +83,137 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-4 bg-white">
+      <section className="relative py-24 px-4 border-t border-cyan-500/10">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h3 className="text-3xl font-bold text-gray-900 mb-4">
-              Platform Features
+          <div className="text-center mb-20">
+            <h3 className="text-4xl font-bold mb-4">
+              <span className="gradient-text">Powerful Features</span>
             </h3>
-            <p className="text-lg text-gray-600">
-              Everything you need for successful career exploration
+            <p className="text-lg text-slate-400">
+              Everything you need to succeed in your career exploration
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                  <Users className="w-6 h-6 text-blue-600" />
-                </div>
-                <CardTitle>AI-Powered Pod Matching</CardTitle>
-                <CardDescription>
-                  Find the perfect group based on your major, interests, and career goals
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-                  <Calendar className="w-6 h-6 text-green-600" />
-                </div>
-                <CardTitle>Structured Pod Meetings</CardTitle>
-                <CardDescription>
-                  Regular meetings with structured agendas and collaboration tools
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-                  <Target className="w-6 h-6 text-purple-600" />
-                </div>
-                <CardTitle>Progress Tracking</CardTitle>
-                <CardDescription>
-                  Track your skill development and career milestone achievements
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
-                  <UserCheck className="w-6 h-6 text-orange-600" />
-                </div>
-                <CardTitle>Mentor Integration</CardTitle>
-                <CardDescription>
-                  Connect with faculty and alumni from President University for career guidance
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
-                  <Award className="w-6 h-6 text-red-600" />
-                </div>
-                <CardTitle>Achievements & Badges</CardTitle>
-                <CardDescription>
-                  Get recognized for your achievements and contributions in your pod
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
-                  <BookOpen className="w-6 h-6 text-indigo-600" />
-                </div>
-                <CardTitle>Career Resources</CardTitle>
-                <CardDescription>
-                  Access learning materials and industry insights for career growth
-                </CardDescription>
-              </CardHeader>
-            </Card>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { icon: Users, title: "AI-Powered Matching", desc: "Smart algorithm pairs you with compatible students based on interests, goals, and learning style." },
+              { icon: Calendar, title: "Structured Meetings", desc: "Regular facilitated discussions with industry professionals and peer learning sessions." },
+              { icon: Target, title: "Goal Tracking", desc: "Monitor your progress, achievements, and career milestones throughout your journey." },
+              { icon: UserCheck, title: "Expert Mentors", desc: "Connect with experienced professionals and alumni from President University." },
+              { icon: Award, title: "Achievements", desc: "Earn badges and recognition for your contributions and professional growth." },
+              { icon: BookOpen, title: "Resources Hub", desc: "Access curated career guides, industry insights, and learning materials." }
+            ].map((feature, i) => (
+              <Card key={i} className="glass-alt card-hover card-border bg-slate-900/30 border-slate-700/50">
+                <CardHeader>
+                  <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4 glow-sm">
+                    <feature.icon className="w-6 h-6 text-cyan-400" />
+                  </div>
+                  <CardTitle className="text-slate-100">{feature.title}</CardTitle>
+                  <CardDescription className="text-slate-400">{feature.desc}</CardDescription>
+                </CardHeader>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
 
       {/* How It Works */}
-      <section className="py-20 px-4 bg-gray-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h3 className="text-3xl font-bold text-gray-900 mb-4">
-              How Career Explorer Pods Works
+      <section className="relative py-24 px-4 border-t border-cyan-500/10">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-20">
+            <h3 className="text-4xl font-bold mb-4">
+              <span className="gradient-text">How It Works</span>
             </h3>
-            <p className="text-lg text-gray-600">
-              3 easy steps to start your career journey
-            </p>
+            <p className="text-lg text-slate-400">Get started in 3 simple steps</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-white">1</span>
+            {[
+              { num: "01", title: "Complete Your Profile", desc: "Share your major, interests, goals, and learning preferences" },
+              { num: "02", title: "Get Matched", desc: "Our AI matches you with your perfect pod of fellow students" },
+              { num: "03", title: "Start Exploring", desc: "Join meetings, connect with mentors, and grow together" }
+            ].map((step, i) => (
+              <div key={i} className="relative">
+                <div className="glass card-hover card-border bg-slate-900/40 p-8 rounded-xl border-slate-700/50">
+                  <div className="text-5xl font-bold gradient-text opacity-20 mb-4">{step.num}</div>
+                  <h4 className="text-xl font-semibold text-slate-100 mb-3">{step.title}</h4>
+                  <p className="text-slate-400">{step.desc}</p>
+                </div>
+                {i < 2 && (
+                  <div className="hidden md:block absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2">
+                    <div className="w-12 h-12 flex items-center justify-center">
+                      <ArrowRight className="w-6 h-6 text-cyan-500/50" />
+                    </div>
+                  </div>
+                )}
               </div>
-              <h4 className="text-xl font-semibold mb-2">Complete Profile</h4>
-              <p className="text-gray-600">
-                Fill out your complete profile with major, career interests, and goals
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-white">2</span>
-              </div>
-              <h4 className="text-xl font-semibold mb-2">Get Matched</h4>
-              <p className="text-gray-600">
-                Our AI will match you with the most suitable pod
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-white">3</span>
-              </div>
-              <h4 className="text-xl font-semibold mb-2">Start Exploring</h4>
-              <p className="text-gray-600">
-                Start regular meetings and explore careers with your pod
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 bg-blue-600">
-        <div className="max-w-4xl mx-auto text-center">
-          <h3 className="text-3xl font-bold text-white mb-4">
-            Ready to Start Your Career Journey?
+      <section className="relative py-24 px-4">
+        <div className="absolute inset-0 gradient-brand opacity-5 rounded-2xl" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
+        
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <h3 className="text-4xl font-bold mb-6">
+            <span className="gradient-text">Ready to Transform Your Career?</span>
           </h3>
-          <p className="text-xl text-blue-100 mb-8">
-            Join hundreds of President University students who have discovered their career paths
+          <p className="text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
+            Join hundreds of President University students who are discovering their paths and building lasting professional relationships.
           </p>
           <Button 
             size="lg" 
-            variant="secondary" 
-            className="bg-white text-blue-600 hover:bg-gray-100"
+            className="gradient-brand btn-glow h-12 px-10 text-lg font-semibold"
             onClick={() => setShowOnboarding(true)}
           >
-            Sign Up Now - Free
+            Start Your Journey Now <ArrowRight className="w-5 h-5 ml-2" />
           </Button>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 px-4">
+      <footer className="border-t border-cyan-500/10 bg-slate-900/50 backdrop-blur py-12 px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                <Users className="w-6 h-6" />
-                <span className="text-lg font-bold">Career Explorer Pods</span>
+                <div className="w-8 h-8 gradient-brand rounded-lg flex items-center justify-center glow-sm">
+                  <Users className="w-5 h-5 text-white" />
+                </div>
+                <span className="text-lg font-bold gradient-text">Career Pods</span>
               </div>
-              <p className="text-gray-400">
-                Career exploration platform for President University students
+              <p className="text-slate-400 text-sm">
+                Empowering President University students to explore and build careers together.
               </p>
             </div>
             
             <div>
-              <h4 className="font-semibold mb-4">Features</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li>AI Matching</li>
-                <li>Pod Meetings</li>
-                <li>Progress Tracking</li>
-                <li>Mentorship</li>
+              <h4 className="font-semibold mb-4 text-cyan-300">Features</h4>
+              <ul className="space-y-2 text-slate-400 text-sm">
+                <li className="hover:text-cyan-400 cursor-pointer">AI Matching</li>
+                <li className="hover:text-cyan-400 cursor-pointer">Pod Meetings</li>
+                <li className="hover:text-cyan-400 cursor-pointer">Progress Tracking</li>
+                <li className="hover:text-cyan-400 cursor-pointer">Mentorship</li>
               </ul>
             </div>
             
             <div>
-              <h4 className="font-semibold mb-4">Resources</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li>Career Guide</li>
-                <li>Industry Insights</li>
-                <li>Alumni Stories</li>
-                <li>FAQ</li>
+              <h4 className="font-semibold mb-4 text-cyan-300">Resources</h4>
+              <ul className="space-y-2 text-slate-400 text-sm">
+                <li className="hover:text-cyan-400 cursor-pointer">Career Guide</li>
+                <li className="hover:text-cyan-400 cursor-pointer">Industry Insights</li>
+                <li className="hover:text-cyan-400 cursor-pointer">Alumni Stories</li>
+                <li className="hover:text-cyan-400 cursor-pointer">FAQ</li>
               </ul>
             </div>
             
             <div>
-              <h4 className="font-semibold mb-4">Connect</h4>
-              <ul className="space-y-2 text-gray-400">
+              <h4 className="font-semibold mb-4 text-cyan-300">Contact</h4>
+              <ul className="space-y-2 text-slate-400 text-sm">
                 <li>contact@presuniv-pods.edu</li>
                 <li>President University</li>
                 <li>Jababeka, Cikarang</li>
@@ -266,8 +221,8 @@ export default function Home() {
             </div>
           </div>
           
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 Career Explorer Pods. President University. All rights reserved.</p>
+          <div className="border-t border-slate-800 pt-8 text-center text-slate-500 text-sm">
+            <p>&copy; 2024 Career Explorer Pods. All rights reserved.</p>
           </div>
         </div>
       </footer>

@@ -169,70 +169,70 @@ export default function ProgressDashboard({
     <div className="space-y-6">
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
+        <Card className="glass-alt card-border border-slate-700/50 bg-slate-900/40">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-slate-600">Overall Progress</CardTitle>
+            <CardTitle className="text-sm font-medium text-slate-400">Overall Progress</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-slate-900">{stats.overallProgress}%</div>
-            <p className="text-xs text-slate-500 mt-1">
+            <div className="text-3xl font-bold text-slate-100">{stats.overallProgress}%</div>
+            <p className="text-xs text-slate-400 mt-1">
               {stats.completedSkills} of {localSkills.length} skills
             </p>
-            <div className="mt-3 h-2 bg-slate-100 rounded-full overflow-hidden">
+            <div className="mt-3 h-2 bg-slate-800 rounded-full overflow-hidden">
               <div
-                className="h-2 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full transition-all"
+                className="h-2 bg-gradient-to-r from-cyan-500 to-cyan-600 rounded-full transition-all"
                 style={{ width: `${stats.overallProgress}%` }}
               />
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="glass-alt card-border border-slate-700/50 bg-slate-900/40">
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-sm font-medium text-slate-600">Avg Level</CardTitle>
-              <TrendingUp className="w-4 h-4 text-blue-600" />
+              <CardTitle className="text-sm font-medium text-slate-400">Avg Level</CardTitle>
+              <TrendingUp className="w-4 h-4 text-cyan-400" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-slate-900">{stats.averageLevel}</div>
-            <p className="text-xs text-slate-500 mt-1">Out of 5</p>
+            <div className="text-3xl font-bold text-slate-100">{stats.averageLevel}</div>
+            <p className="text-xs text-slate-400 mt-1">Out of 5</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="glass-alt card-border border-slate-700/50 bg-slate-900/40">
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-sm font-medium text-slate-600">Completed</CardTitle>
-              <CheckCircle2 className="w-4 h-4 text-green-600" />
+              <CardTitle className="text-sm font-medium text-slate-400">Completed</CardTitle>
+              <CheckCircle2 className="w-4 h-4 text-green-400" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-slate-900">{stats.completedSkills}</div>
-            <p className="text-xs text-slate-500 mt-1">Skills mastered</p>
+            <div className="text-3xl font-bold text-slate-100">{stats.completedSkills}</div>
+            <p className="text-xs text-slate-400 mt-1">Skills mastered</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="glass-alt card-border border-slate-700/50 bg-slate-900/40">
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-sm font-medium text-slate-600">Streak</CardTitle>
-              <Zap className="w-4 h-4 text-yellow-600" />
+              <CardTitle className="text-sm font-medium text-slate-400">Streak</CardTitle>
+              <Zap className="w-4 h-4 text-yellow-400" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-slate-900">{stats.streak}</div>
-            <p className="text-xs text-slate-500 mt-1">Keep it up!</p>
+            <div className="text-3xl font-bold text-slate-100">{stats.streak}</div>
+            <p className="text-xs text-slate-400 mt-1">Keep it up!</p>
           </CardContent>
         </Card>
       </div>
 
       {/* Achievements */}
       {achievements.length > 0 && (
-        <Card className="bg-gradient-to-br from-purple-50 to-blue-50 border-purple-200">
+        <Card className="glass-alt card-border border-slate-700/50 bg-slate-900/40">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Award className="w-5 h-5 text-purple-600" />
+            <CardTitle className="flex items-center gap-2 text-slate-100">
+              <Award className="w-5 h-5 text-purple-400" />
               Achievements Unlocked
             </CardTitle>
           </CardHeader>
@@ -241,10 +241,10 @@ export default function ProgressDashboard({
               {achievements.map((achievement: any) => (
                 <div
                   key={achievement.id}
-                  className="p-3 bg-white rounded-lg border border-purple-200 hover:shadow-md transition-all"
+                  className="p-3 bg-slate-800/30 rounded-lg border border-slate-700/50 hover:shadow-md transition-all"
                 >
-                  <div className="font-semibold text-slate-900">{achievement.name}</div>
-                  <p className="text-sm text-slate-600">{achievement.description}</p>
+                  <div className="font-semibold text-slate-100">{achievement.name}</div>
+                  <p className="text-sm text-slate-400">{achievement.description}</p>
                 </div>
               ))}
             </div>
@@ -253,11 +253,25 @@ export default function ProgressDashboard({
       )}
 
       {/* Skills List */}
-      <div>
-        <h3 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
-          <Target className="w-5 h-5 text-blue-600" />
-          Skills Development
-        </h3>
+      <div className="glass-alt card-border border-slate-700/50 bg-slate-900/40 rounded-xl p-8">
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h3 className="text-xl font-semibold text-slate-100 flex items-center gap-2">
+              <TrendingUp className="w-5 h-5 text-green-400" />
+              Skills Development
+            </h3>
+            <p className="text-sm text-slate-400 mt-1">Track your skill growth</p>
+          </div>
+          {localSkills.filter((s: any) => {
+            const skill = progress.find((p: any) => p.skillId === s.skillId);
+            return skill && skill.level >= skill.targetLevel;
+          }).length > 0 && (
+            <span className="text-2xl font-bold text-green-400">{localSkills.filter((s: any) => {
+              const skill = progress.find((p: any) => p.skillId === s.skillId);
+              return skill && skill.level >= skill.targetLevel;
+            }).length}</span>
+          )}
+        </div>
 
         {localSkills.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -280,31 +294,29 @@ export default function ProgressDashboard({
             })}
           </div>
         ) : (
-          <Card>
-            <CardContent className="py-12 text-center">
-              <Target className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-              <p className="text-slate-600 mb-4">No skills tracked yet</p>
-              <p className="text-sm text-slate-500 mb-4">
-                Add your first skill to start tracking your progress
-              </p>
-              <Button 
-                onClick={() => setShowAddSkillModal(true)}
-                className="bg-blue-600 hover:bg-blue-700 text-white"
-              >
-                <Star className="w-4 h-4 mr-2" />
-                Add Your First Skill
-              </Button>
-            </CardContent>
-          </Card>
+          <div className="text-center py-8">
+            <Target className="w-12 h-12 text-slate-600 mx-auto mb-3" />
+            <p className="text-slate-400 mb-3">No skills tracked yet</p>
+            <p className="text-sm text-slate-500 mb-4">
+              Add your first skill to start tracking your progress
+            </p>
+            <Button 
+              onClick={() => setShowAddSkillModal(true)}
+              className="bg-cyan-600 hover:bg-cyan-700 text-white"
+            >
+              <Star className="w-4 h-4 mr-2" />
+              Add Your First Skill
+            </Button>
+          </div>
         )}
 
         {localSkills.length > 0 && (
           <Button 
             onClick={() => setShowAddSkillModal(true)}
             variant="outline"
-            className="mt-4 w-full border-slate-200"
+            className="mt-4 w-full border-slate-700/50 text-slate-300 hover:bg-slate-800/30"
           >
-            <Star className="w-4 h-4 mr-2" />
+            <Plus className="w-4 h-4 mr-2" />
             Add Another Skill
           </Button>
         )}
@@ -321,69 +333,70 @@ export default function ProgressDashboard({
       />
 
       {/* Career Goals */}
-      <div>
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-slate-900 flex items-center gap-2">
-            <Clock className="w-5 h-5 text-amber-600" />
-            Career Goals
-          </h3>
-          <Button 
-            onClick={() => setShowCareerGoalModal(true)}
-            size="sm"
-            className="bg-blue-600 hover:bg-blue-700 text-white"
-          >
-            <Plus className="w-4 h-4 mr-1" />
-            Add Goal
-          </Button>
+      <div className="glass-alt card-border border-slate-700/50 bg-slate-900/40 rounded-xl p-8">
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h3 className="text-xl font-semibold text-slate-100 flex items-center gap-2">
+              <Target className="w-5 h-5 text-cyan-400" />
+              Career Goals
+            </h3>
+            <p className="text-sm text-slate-400 mt-1">Explore your career path</p>
+          </div>
+          {careerInterests.length > 0 && (
+            <span className="text-2xl font-bold text-cyan-400">{careerInterests.length}</span>
+          )}
         </div>
 
         {careerInterests.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {careerInterests.map((interest: any) => (
-              <Card key={interest.id} className="hover:shadow-lg transition-all">
-                <CardHeader>
-                  <div className="flex items-start justify-between">
+              <div key={interest.id} className="flex flex-col items-start p-4 rounded-lg glass-alt border border-slate-700/50 bg-slate-800/30 hover:shadow-md transition-all">
+                <div className="w-full">
+                  <div className="flex items-start justify-between mb-2">
                     <div>
-                      <CardTitle className="text-base">{interest.role}</CardTitle>
-                      <CardDescription>{interest.industry}</CardDescription>
+                      <h4 className="font-semibold text-slate-100">{interest.role}</h4>
+                      <p className="text-sm text-slate-400 mt-0.5">{interest.industry}</p>
                     </div>
-                    <Badge variant={
-                      interest.priority === 'HIGH' ? 'default' :
-                      interest.priority === 'MEDIUM' ? 'secondary' :
-                      'outline'
-                    }>
+                    <Badge className={interest.priority === 'HIGH' ? 'bg-red-600/30 text-red-400' : interest.priority === 'MEDIUM' ? 'bg-yellow-600/30 text-yellow-400' : 'bg-green-600/30 text-green-400'}>
                       {interest.priority}
                     </Badge>
                   </div>
-                </CardHeader>
-                <CardContent className="space-y-3">
                   {interest.description && (
-                    <p className="text-sm text-slate-600">{interest.description}</p>
+                    <p className="text-sm text-slate-300 mt-2">{interest.description}</p>
                   )}
-                  <div className="pt-3 border-t border-slate-100 text-xs text-slate-500">
-                    Created on {new Date(interest.createdAt).toLocaleDateString()}
+                  <div className="pt-3 mt-3 border-t border-slate-700/50 text-xs text-slate-500">
+                    Created {new Date(interest.createdAt).toLocaleDateString()}
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             ))}
           </div>
         ) : (
-          <Card className="border-dashed">
-            <CardContent className="py-8 text-center">
-              <Target className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-              <p className="text-slate-600 mb-3">No career goals set yet</p>
-              <p className="text-sm text-slate-500 mb-4">
-                Define your career goals and track progress towards them
-              </p>
-              <Button 
-                onClick={() => setShowCareerGoalModal(true)}
-                className="bg-blue-600 hover:bg-blue-700 text-white"
-              >
-                <Target className="w-4 h-4 mr-2" />
-                Set Your First Career Goal
-              </Button>
-            </CardContent>
-          </Card>
+          <div className="text-center py-8">
+            <Target className="w-12 h-12 text-slate-600 mx-auto mb-3" />
+            <p className="text-slate-400">No career goals set yet</p>
+            <p className="text-sm text-slate-500 mt-2 mb-4">
+              Define your career goals and track progress towards them
+            </p>
+            <Button 
+              onClick={() => setShowCareerGoalModal(true)}
+              className="bg-cyan-600 hover:bg-cyan-700 text-white"
+            >
+              <Plus className="w-4 h-4 mr-1" />
+              Add Your First Career Goal
+            </Button>
+          </div>
+        )}
+
+        {careerInterests.length > 0 && (
+          <Button 
+            onClick={() => setShowCareerGoalModal(true)}
+            variant="outline"
+            className="mt-4 w-full border-slate-700/50 text-slate-300 hover:bg-slate-800/30"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            Add Another Goal
+          </Button>
         )}
       </div>
 

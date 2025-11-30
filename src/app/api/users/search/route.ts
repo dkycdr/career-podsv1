@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
-import { searchUsersMeili } from '@/lib/search';
 
 // Simple in-memory rate limiter (per-IP) for dev / small deployments.
 const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
@@ -44,39 +43,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ success: false, error: 'Query too long' }, { status: 400 });
     }
 
-      // If Meilisearch is configured, prefer it for fuzzy/fast search.
-      if (process.env.MEILISEARCH_URL) {
-        try {
-          const offset = cursor ? parseInt(cursor, 10) || 0 : 0;
-          const meiliRes: any = await searchUsersMeili(q, role, limit, offset);
-          const hits = meiliRes.hits || [];
-          const usersFromMeili = hits.map((h: any) => ({ id: h.id, name: h.name, avatar: h.avatar || null, major: h.major || null, year: h.year || null, role: h.role || null, email: h.email ?? null }));
-
-          // privacy enforcement: only reveal email to permitted viewers
-          let usersWithPrivacy = usersFromMeili.map((u: any) => ({ ...u, email: null }));
-          if (viewerId) {
-            try {
-              const viewerMemberships = await db.podMembership.findMany({ where: { userId: viewerId }, select: { podId: true } });
-              const podIds = viewerMemberships.map((m: any) => m.podId);
-              let connectedUserIds = new Set<string>();
-              if (podIds.length > 0) {
-                const members = await db.podMembership.findMany({ where: { podId: { in: podIds } }, select: { userId: true } });
-                members.forEach((m: any) => { if (m.userId !== viewerId) connectedUserIds.add(m.userId); });
-              }
-              usersWithPrivacy = usersFromMeili.map((u: any) => ({ ...u, email: (u.id === viewerId || connectedUserIds.has(u.id)) ? u.email : null }));
-            } catch (err) {
-              console.error('Error computing viewer permissions for Meili search:', err);
-              usersWithPrivacy = usersFromMeili.map((u: any) => ({ ...u, email: null }));
-            }
-          }
-
-          const nextCursor = (hits.length === limit) ? String(offset + limit) : null;
-          return NextResponse.json({ success: true, users: usersWithPrivacy, nextCursor });
-        } catch (err) {
-          console.error('Meilisearch error, falling back to DB search:', err);
-          // fall through to DB-based search below
-        }
-      }
+      // Using database search only
 
     const where: any = {};
 

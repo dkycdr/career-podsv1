@@ -72,20 +72,20 @@ const ReviewStep: React.FC<ReviewStepProps> = ({ data, onUpdate }) => {
   const getPriorityColor = (priority: string) => {
     switch (priority) {
       case "HIGH":
-        return "bg-red-100 text-red-800";
+        return "bg-red-600/30 text-red-400";
       case "MEDIUM":
-        return "bg-yellow-100 text-yellow-800";
+        return "bg-yellow-600/30 text-yellow-400";
       case "LOW":
-        return "bg-green-100 text-green-800";
+        return "bg-green-600/30 text-green-400";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-slate-700 text-slate-300";
     }
   };
 
   const getLevelColor = (level: number) => {
-    if (level <= 2) return "bg-red-100 text-red-800";
-    if (level <= 3) return "bg-yellow-100 text-yellow-800";
-    return "bg-green-100 text-green-800";
+    if (level <= 2) return "bg-red-600/30 text-red-400";
+    if (level <= 3) return "bg-yellow-600/30 text-yellow-400";
+    return "bg-green-600/30 text-green-400";
   };
 
   const getLevelText = (level: number) => {
@@ -152,13 +152,13 @@ const ReviewStep: React.FC<ReviewStepProps> = ({ data, onUpdate }) => {
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <Check className="w-8 h-8 text-green-600" />
+        <div className="w-16 h-16 bg-cyan-600/30 rounded-full flex items-center justify-center mx-auto mb-4">
+          <Check className="w-8 h-8 text-cyan-400" />
         </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            <h2 className="text-2xl font-bold text-slate-100 mb-2">
               Review Your Information
             </h2>
-            <p className="text-gray-600">
+            <p className="text-slate-400">
               Review your information before completing registration
             </p>
       </div>
@@ -174,7 +174,7 @@ const ReviewStep: React.FC<ReviewStepProps> = ({ data, onUpdate }) => {
         <CardContent className="space-y-4">
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <Label className="text-sm font-medium text-gray-600">Full Name</Label>
+              <Label className="text-sm font-medium text-slate-400">Full Name</Label>
               <p className="font-medium">{data.personalInfo.name}</p>
             </div>
             <div>
@@ -184,15 +184,15 @@ const ReviewStep: React.FC<ReviewStepProps> = ({ data, onUpdate }) => {
               </p>
             </div>
             <div>
-              <Label className="text-sm font-medium text-gray-600">Student ID</Label>
+              <Label className="text-sm font-medium text-slate-400">Student ID</Label>
               <p className="font-medium">{data.personalInfo.studentId}</p>
             </div>
             <div>
-              <Label className="text-sm font-medium text-gray-600">Major</Label>
+              <Label className="text-sm font-medium text-slate-400">Major</Label>
               <p className="font-medium">{data.personalInfo.major}</p>
             </div>
             <div>
-              <Label className="text-sm font-medium text-gray-600">Year of Study</Label>
+              <Label className="text-sm font-medium text-slate-400">Year of Study</Label>
               <p className="font-medium flex items-center space-x-2">
                 <GraduationCap className="w-4 h-4" />
                 <span>{getYearText(data.personalInfo.year)}</span>
@@ -202,7 +202,7 @@ const ReviewStep: React.FC<ReviewStepProps> = ({ data, onUpdate }) => {
           
           {data.personalInfo.bio && (
             <div>
-              <Label className="text-sm font-medium text-gray-600">Bio</Label>
+              <Label className="text-sm font-medium text-slate-400">Bio</Label>
               <p className="text-sm text-gray-700 mt-1">{data.personalInfo.bio}</p>
             </div>
           )}
@@ -225,7 +225,7 @@ const ReviewStep: React.FC<ReviewStepProps> = ({ data, onUpdate }) => {
                   <div className="flex justify-between items-start">
                     <div>
                       <p className="font-medium">{interest.role}</p>
-                      <p className="text-sm text-gray-600">{interest.industry}</p>
+                      <p className="text-sm text-slate-400">{interest.industry}</p>
                       {interest.description && (
                         <p className="text-sm text-gray-500 mt-1">{interest.description}</p>
                       )}
@@ -256,7 +256,7 @@ const ReviewStep: React.FC<ReviewStepProps> = ({ data, onUpdate }) => {
         <CardContent className="space-y-4">
           {/* Current Skills */}
           <div>
-            <Label className="text-sm font-medium text-gray-600">Current Skills</Label>
+            <Label className="text-sm font-medium text-slate-400">Current Skills</Label>
             {data.skills.currentSkills.length > 0 ? (
               <div className="flex flex-wrap gap-2 mt-2">
                 {data.skills.currentSkills.map((skill) => (
@@ -274,7 +274,7 @@ const ReviewStep: React.FC<ReviewStepProps> = ({ data, onUpdate }) => {
 
           {/* Target Skills */}
           <div>
-            <Label className="text-sm font-medium text-gray-600 flex items-center space-x-2">
+            <Label className="text-sm font-medium text-slate-400 flex items-center space-x-2">
               <TrendingUp className="w-4 h-4" />
                 <span>Target Skills</span>
             </Label>
@@ -308,13 +308,13 @@ const ReviewStep: React.FC<ReviewStepProps> = ({ data, onUpdate }) => {
             </div>
             <div>
               <p className="font-medium">available slots</p>
-              <p className="text-sm text-gray-600">{getSelectedSlotsCount() * 4} hours per week</p>
+              <p className="text-sm text-slate-400">{getSelectedSlotsCount() * 4} hours per week</p>
             </div>
           </div>
 
           {getSelectedSlotsCount() > 0 ? (
             <div>
-              <Label className="text-sm font-medium text-gray-600">Selected Slots:</Label>
+              <Label className="text-sm font-medium text-slate-400">Selected Slots:</Label>
               <div className="flex flex-wrap gap-1 mt-2">
                 {getSelectedSlots().map((slot, index) => (
                   <Badge key={index} variant="secondary" className="text-xs">
@@ -333,58 +333,52 @@ const ReviewStep: React.FC<ReviewStepProps> = ({ data, onUpdate }) => {
       </Card>
 
       {/* AI Matching Preview */}
-      <Card className="bg-blue-50 border-blue-200">
-        <CardHeader>
-          <CardTitle className="text-lg text-blue-900">
-            🤖 AI Matching Preview
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
-            <div className="flex items-center space-x-2">
-              <Check className="w-5 h-5 text-green-600" />
-              <span className="text-sm">Profile lengkap untuk AI matching</span>
-                        <span className="text-sm">Complete profile for AI matching</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Check className="w-5 h-5 text-green-600" />
-              <span className="text-sm">
-                  {data.careerInterests.interests.length} career interests detected
-              </span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Check className="w-5 h-5 text-green-600" />
-              <span className="text-sm">
-                  {data.skills.currentSkills.length + data.skills.targetSkills.length} skills registered
-              </span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Check className="w-5 h-5 text-green-600" />
-              <span className="text-sm">
-                  {getSelectedSlotsCount()} time slots for pod matching
-              </span>
-            </div>
+      <div className="glass-alt card-border border-slate-700/50 bg-slate-900/40 rounded-xl p-6">
+        <h3 className="text-lg font-semibold text-slate-100 mb-4 flex items-center gap-2">
+          🤖 AI Matching Preview
+        </h3>
+        <div className="space-y-3">
+          <div className="flex items-center space-x-2">
+            <Check className="w-5 h-5 text-cyan-400" />
+            <span className="text-sm text-slate-300">Complete profile for AI matching</span>
           </div>
-          
-          <div className="mt-4 p-3 bg-white rounded-lg">
-            <p className="text-sm font-medium text-blue-900 mb-1">Prediksi Matching:</p>
-                        <p className="text-sm font-medium text-blue-900 mb-1">Matching Prediction:</p>
-            <p className="text-xs text-blue-700">
-              Based on your profile, you're most likely to match with pods focused on{" "}
-              {data.careerInterests.interests.length > 0 
-                ? data.careerInterests.interests[0].industry
-                : "eksplorasi karir umum"}
-            </p>
+          <div className="flex items-center space-x-2">
+            <Check className="w-5 h-5 text-cyan-400" />
+            <span className="text-sm text-slate-300">
+                {data.careerInterests.interests.length} career interests detected
+            </span>
           </div>
-        </CardContent>
-      </Card>
+          <div className="flex items-center space-x-2">
+            <Check className="w-5 h-5 text-cyan-400" />
+            <span className="text-sm text-slate-300">
+                {data.skills.currentSkills.length + data.skills.targetSkills.length} skills registered
+            </span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Check className="w-5 h-5 text-cyan-400" />
+            <span className="text-sm text-slate-300">
+                {getSelectedSlotsCount()} time slots for pod matching
+            </span>
+          </div>
+        </div>
+        
+        <div className="mt-4 p-3 bg-slate-800/30 border border-slate-700/50 rounded-lg">
+          <p className="text-sm font-medium text-slate-200 mb-1">Matching Prediction:</p>
+          <p className="text-xs text-slate-400">
+            Based on your profile, you're most likely to match with pods focused on{" "}
+            {data.careerInterests.interests.length > 0 
+              ? data.careerInterests.interests[0].industry
+              : "general career exploration"}
+          </p>
+        </div>
+      </div>
 
       {/* Final Actions */}
       <div className="text-center space-y-4">
-        <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-          <Check className="w-8 h-8 text-green-600 mx-auto mb-2" />
-            <h3 className="font-semibold text-green-900 mb-1">Ready to Join!</h3>
-            <p className="text-sm text-green-700">
+        <div className="glass-alt card-border border-cyan-500/50 bg-cyan-600/10 rounded-lg p-4">
+          <Check className="w-8 h-8 text-cyan-400 mx-auto mb-2" />
+            <h3 className="font-semibold text-slate-100 mb-1">Ready to Join!</h3>
+            <p className="text-sm text-slate-300">
               Your profile is complete. Click "Complete Registration" to join Career Explorer Pods.
             </p>
         </div>

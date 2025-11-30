@@ -107,13 +107,13 @@ const CareerInterestsStep: React.FC<CareerInterestsStepProps> = ({ data, onUpdat
   const getPriorityColor = (priority: string) => {
     switch (priority) {
       case "HIGH":
-        return "bg-red-100 text-red-800";
+        return "bg-red-600/30 text-red-400";
       case "MEDIUM":
-        return "bg-yellow-100 text-yellow-800";
+        return "bg-yellow-600/30 text-yellow-400";
       case "LOW":
-        return "bg-green-100 text-green-800";
+        return "bg-green-600/30 text-green-400";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-slate-700 text-slate-300";
     }
   };
 
@@ -155,8 +155,8 @@ const CareerInterestsStep: React.FC<CareerInterestsStepProps> = ({ data, onUpdat
                       
                       {interest.description && (
                         <div>
-                          <Label>Description</Label>
-                          <p className="text-sm text-gray-600">{interest.description}</p>
+                          <Label className="text-slate-300">Description</Label>
+                          <p className="text-sm text-slate-400">{interest.description}</p>
                         </div>
                       )}
                     </div>
@@ -185,12 +185,12 @@ const CareerInterestsStep: React.FC<CareerInterestsStepProps> = ({ data, onUpdat
         <CardContent className="space-y-4">
           <div className="grid md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="industry">Industry *</Label>
+              <Label htmlFor="industry" className="text-slate-300">Industry *</Label>
               <Select
                 value={newInterest.industry}
                 onValueChange={(value) => setNewInterest({ ...newInterest, industry: value })}
               >
-                <SelectTrigger>
+                <SelectTrigger className="border-slate-700/50 bg-slate-800/30 text-slate-100">
                   <SelectValue placeholder="Select industry" />
                 </SelectTrigger>
                 <SelectContent>
@@ -204,12 +204,12 @@ const CareerInterestsStep: React.FC<CareerInterestsStepProps> = ({ data, onUpdat
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="role">Career Role *</Label>
+              <Label htmlFor="role" className="text-slate-300">Career Role *</Label>
               <Select
                 value={newInterest.role}
                 onValueChange={(value) => setNewInterest({ ...newInterest, role: value })}
               >
-                <SelectTrigger>
+                <SelectTrigger className="border-slate-700/50 bg-slate-800/30 text-slate-100">
                   <SelectValue placeholder="Select career role" />
                 </SelectTrigger>
                 <SelectContent>
@@ -223,14 +223,14 @@ const CareerInterestsStep: React.FC<CareerInterestsStepProps> = ({ data, onUpdat
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="priority">Priority</Label>
+              <Label htmlFor="priority" className="text-slate-300">Priority</Label>
               <Select
                 value={newInterest.priority}
                 onValueChange={(value: "LOW" | "MEDIUM" | "HIGH") =>
                   setNewInterest({ ...newInterest, priority: value })
                 }
               >
-                <SelectTrigger>
+                <SelectTrigger className="border-slate-700/50 bg-slate-800/30 text-slate-100">
                   <SelectValue placeholder="Select priority" />
                 </SelectTrigger>
                 <SelectContent>
@@ -243,13 +243,14 @@ const CareerInterestsStep: React.FC<CareerInterestsStepProps> = ({ data, onUpdat
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="description">Description (Optional)</Label>
+            <Label htmlFor="description" className="text-slate-300">Description (Optional)</Label>
             <Textarea
               id="description"
               value={newInterest.description}
               onChange={(e) => setNewInterest({ ...newInterest, description: e.target.value })}
               placeholder="Explain why you're interested in this field, or what you'd like to learn..."
               rows={3}
+              className="border-slate-700/50 bg-slate-800/30 text-slate-100 placeholder:text-slate-500"
             />
           </div>
 

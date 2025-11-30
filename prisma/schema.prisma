@@ -38,6 +38,7 @@ model User {
   careerInterests CareerInterest[]
   skills         UserSkill[]
   podMaterials   PodMaterial[]
+  podMessages    PodMessage[] @relation("podMessages")
 
   @@map("users")
 }
@@ -55,6 +56,7 @@ model Pod {
   memberships PodMembership[]
   meetings    Meeting[]
   materials   PodMaterial[]
+  messages    PodMessage[]
 
   @@map("pods")
 }
@@ -212,6 +214,22 @@ model PodMaterial {
   user User   @relation(fields: [uploadedBy], references: [id], onDelete: Cascade)
 
   @@map("pod_materials")
+}
+
+model PodMessage {
+  id        String   @id @default(cuid())
+  podId     String
+  userId    String
+  userName  String
+  message   String
+  role      String   @default("MEMBER") // MEMBER, MENTOR, LEAD
+  createdAt DateTime @default(now())
+
+  // Relationships
+  pod  Pod  @relation(fields: [podId], references: [id], onDelete: Cascade)
+  user User @relation("podMessages", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("pod_messages")
 }
 
 // Enums

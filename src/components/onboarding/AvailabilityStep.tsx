@@ -171,7 +171,7 @@ const AvailabilityStep: React.FC<AvailabilityStepProps> = ({ data, onUpdate }) =
             <Calendar className="w-5 h-5" />
             <span>Select Your Available Times</span>
           </CardTitle>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-slate-400">
             Pod meetings usually happen every 2 weeks and last 1-2 hours
           </p>
         </CardHeader>
@@ -180,15 +180,15 @@ const AvailabilityStep: React.FC<AvailabilityStepProps> = ({ data, onUpdate }) =
             <table className="w-full border-collapse">
               <thead>
                 <tr>
-                  <th className="border border-gray-200 p-2 bg-gray-50 text-left">
+                  <th className="border border-slate-700/50 p-2 bg-slate-800/30 text-left text-slate-300">
                       <Users className="w-4 h-4" />
                     </th>
                   {TIME_SLOTS.map((slot) => (
-                    <th key={slot.id} className="border border-gray-200 p-2 bg-gray-50 text-center">
+                    <th key={slot.id} className="border border-slate-700/50 p-2 bg-slate-800/30 text-center text-slate-300">
                       <div className="text-xs">
                         <div className="text-lg">{slot.icon}</div>
                         <div className="font-medium">{slot.label}</div>
-                        <div className="text-gray-500">{slot.time}</div>
+                        <div className="text-slate-400">{slot.time}</div>
                       </div>
                     </th>
                   ))}
@@ -197,7 +197,7 @@ const AvailabilityStep: React.FC<AvailabilityStepProps> = ({ data, onUpdate }) =
               <tbody>
                 {DAYS.map((day) => (
                   <tr key={day.id}>
-                    <td className="border border-gray-200 p-2 bg-gray-50 font-medium">
+                    <td className="border border-slate-700/50 p-2 bg-slate-800/30 font-medium text-slate-100">
                       <div className="flex items-center justify-between">
                         <span>{day.label}</span>
                         <Badge variant="outline" className="text-xs">
@@ -210,7 +210,7 @@ const AvailabilityStep: React.FC<AvailabilityStepProps> = ({ data, onUpdate }) =
                       return (
                         <td
                           key={slot.id}
-                          className="border border-gray-200 p-2 text-center"
+                          className="border border-slate-700/50 p-2 text-center"
                         >
                           <Button
                             variant={isSelected ? "default" : "outline"}
@@ -218,8 +218,8 @@ const AvailabilityStep: React.FC<AvailabilityStepProps> = ({ data, onUpdate }) =
                             onClick={() => toggleSlot(day.id, slot.id)}
                             className={`w-full h-12 ${
                               isSelected
-                                ? "bg-blue-600 hover:bg-blue-700"
-                                : "hover:bg-gray-100"
+                                ? "bg-cyan-600 hover:bg-cyan-700"
+                                : "border-slate-700/50 text-slate-300 hover:bg-slate-800/30"
                             }`}
                           >
                             {isSelected ? "✓" : ""}

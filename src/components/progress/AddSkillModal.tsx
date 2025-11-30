@@ -85,22 +85,22 @@ export default function AddSkillModal({
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-200">
-        <div className="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 flex justify-between items-center">
-          <h2 className="text-xl font-bold text-slate-900">➕ Add New Skill</h2>
-          <button onClick={onClose} className="p-1 hover:bg-slate-100 rounded-lg transition-colors">
-            <X className="w-5 h-5 text-slate-600" />
+      <div className="bg-slate-950 rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-200 border border-slate-700/50">
+        <div className="sticky top-0 bg-slate-900/50 border-b border-slate-700/50 px-6 py-4 flex justify-between items-center">
+          <h2 className="text-xl font-bold text-slate-100">➕ Add New Skill</h2>
+          <button onClick={onClose} className="p-1 hover:bg-slate-800/50 rounded-lg transition-colors">
+            <X className="w-5 h-5 text-slate-400" />
           </button>
         </div>
         <div className="p-6 space-y-6">
           {/* Skill Name */}
           <div>
-            <label className="block text-sm font-medium text-slate-900 mb-2">Skill Name</label>
+            <label className="block text-sm font-medium text-slate-300 mb-2">Skill Name</label>
             <Input
               placeholder="e.g., React, Python, Leadership..."
               value={skillName}
               onChange={(e) => setSkillName(e.target.value)}
-              className="border-slate-200"
+              className="border-slate-700/50 bg-slate-800/30 text-slate-100 placeholder:text-slate-500"
               list="skill-suggestions"
             />
             <datalist id="skill-suggestions">
@@ -108,14 +108,14 @@ export default function AddSkillModal({
                 <option key={skill.id} value={skill.name} />
               ))}
             </datalist>
-            <p className="text-xs text-slate-500 mt-2">
+            <p className="text-xs text-slate-400 mt-2">
               Suggested: React, Python, JavaScript, TypeScript, Node.js, Leadership, Communication, Problem Solving
             </p>
           </div>
 
           {/* Initial Level */}
           <div>
-            <label className="block text-sm font-medium text-slate-900 mb-2">Initial Level (1-5)</label>
+            <label className="block text-sm font-medium text-slate-300 mb-2">Initial Level (1-5)</label>
             <div className="flex items-center gap-3">
               {[1, 2, 3, 4, 5].map((level) => (
                 <button
@@ -123,20 +123,20 @@ export default function AddSkillModal({
                   onClick={() => setInitialLevel(level)}
                   className={`w-10 h-10 rounded-lg font-medium transition-all ${
                     initialLevel === level
-                      ? 'bg-blue-600 text-white shadow-lg'
-                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      ? 'bg-cyan-600 text-white shadow-lg shadow-cyan-500/50'
+                      : 'bg-slate-800/30 border border-slate-700/50 text-slate-400 hover:border-slate-600/50'
                   }`}
                 >
                   {level}
                 </button>
               ))}
             </div>
-            <p className="text-xs text-slate-500 mt-2">1 = Beginner, 5 = Expert</p>
+            <p className="text-xs text-slate-400 mt-2">1 = Beginner, 5 = Expert</p>
           </div>
 
           {/* Target Level */}
           <div>
-            <label className="block text-sm font-medium text-slate-900 mb-2">Target Level (1-5)</label>
+            <label className="block text-sm font-medium text-slate-300 mb-2">Target Level (1-5)</label>
             <div className="flex items-center gap-3">
               {[1, 2, 3, 4, 5].map((level) => (
                 <button
@@ -144,15 +144,15 @@ export default function AddSkillModal({
                   onClick={() => setTargetLevel(level)}
                   className={`w-10 h-10 rounded-lg font-medium transition-all ${
                     targetLevel === level
-                      ? 'bg-green-600 text-white shadow-lg'
-                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      ? 'bg-green-600 text-white shadow-lg shadow-green-500/50'
+                      : 'bg-slate-800/30 border border-slate-700/50 text-slate-400 hover:border-slate-600/50'
                   }`}
                 >
                   {level}
                 </button>
               ))}
             </div>
-            <p className="text-xs text-slate-500 mt-2">1 = Beginner, 5 = Expert</p>
+            <p className="text-xs text-slate-400 mt-2">1 = Beginner, 5 = Expert</p>
           </div>
 
           {/* Action Buttons */}
@@ -160,14 +160,14 @@ export default function AddSkillModal({
             <Button
               onClick={onClose}
               variant="outline"
-              className="flex-1"
+              className="flex-1 border-slate-700/50 text-slate-300 hover:bg-slate-800/30"
             >
               Cancel
             </Button>
             <Button
               onClick={handleAddSkill}
               disabled={isLoading || !skillName.trim()}
-              className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
+              className="flex-1 bg-cyan-600 hover:bg-cyan-700 text-white"
             >
               {isLoading ? 'Adding...' : 'Add Skill'}
             </Button>

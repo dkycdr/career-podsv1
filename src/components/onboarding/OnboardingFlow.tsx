@@ -225,19 +225,19 @@ const OnboardingFlow = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8 px-4">
+    <div className="min-h-screen bg-slate-950 py-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center space-x-2 mb-4">
-            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+            <div className="w-10 h-10 gradient-brand rounded-lg flex items-center justify-center glow-sm">
               <User className="w-6 h-6 text-white" />
             </div>
-            <h1 className="text-3xl font-bold text-gray-900">
+            <h1 className="text-3xl font-bold text-slate-100">
               Career Explorer Pods - Onboarding
             </h1>
           </div>
-          <p className="text-gray-600">
+          <p className="text-slate-400">
             Join the President University career exploration community
           </p>
         </div>
@@ -261,10 +261,10 @@ const OnboardingFlow = () => {
                     <div
                       className={`w-10 h-10 rounded-full flex items-center justify-center ${
                         isActive
-                          ? "bg-blue-600 text-white"
+                          ? "bg-cyan-600 text-white"
                           : isCompleted
                           ? "bg-green-600 text-white"
-                          : "bg-gray-300 text-gray-600"
+                          : "bg-slate-700 text-slate-400"
                       }`}
                     >
                       <Icon className="w-5 h-5" />
@@ -272,18 +272,18 @@ const OnboardingFlow = () => {
                     <div className="ml-3 hidden sm:block">
                       <p
                         className={`text-sm font-medium ${
-                          isActive ? "text-blue-600" : isCompleted ? "text-green-600" : "text-gray-500"
+                          isActive ? "text-cyan-400" : isCompleted ? "text-green-400" : "text-slate-400"
                         }`}
                       >
                         {step.title}
                       </p>
-                      <p className="text-xs text-gray-500">{step.description}</p>
+                      <p className="text-xs text-slate-500">{step.description}</p>
                     </div>
                   </div>
                   {index < steps.length - 1 && (
                     <div
                       className={`flex-1 h-1 mx-4 ${
-                        isCompleted ? "bg-green-600" : "bg-gray-300"
+                        isCompleted ? "bg-green-600" : "bg-slate-700"
                       }`}
                     />
                   )}
@@ -291,25 +291,25 @@ const OnboardingFlow = () => {
               );
             })}
           </div>
-          <Progress value={progress} className="h-2" />
-          <p className="text-center text-sm text-gray-600 mt-2">
+          <Progress value={progress} className="h-2 bg-slate-700" />
+          <p className="text-center text-sm text-slate-400 mt-2">
             Step {currentStep + 1} of {steps.length}
           </p>
         </div>
 
         {/* Form Content */}
-        <Card>
+        <Card className="glass-alt card-border border-slate-700/50 bg-slate-900/40">
           <CardHeader>
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-slate-800 rounded-lg flex items-center justify-center">
                 {(() => {
                   const Icon = steps[currentStep].icon;
-                  return <Icon className="w-4 h-4 text-blue-600" />;
+                  return <Icon className="w-4 h-4 text-cyan-400" />;
                 })()}
               </div>
               <div>
-                <CardTitle>{steps[currentStep].title}</CardTitle>
-                <CardDescription>{steps[currentStep].description}</CardDescription>
+                <CardTitle className="text-slate-100">{steps[currentStep].title}</CardTitle>
+                <CardDescription className="text-slate-400">{steps[currentStep].description}</CardDescription>
               </div>
             </div>
           </CardHeader>
@@ -324,7 +324,7 @@ const OnboardingFlow = () => {
             variant="outline"
             onClick={prevStep}
             disabled={currentStep === 0}
-            className="flex items-center space-x-2"
+            className="flex items-center space-x-2 border-slate-700 text-slate-300 hover:bg-slate-800"
           >
             <ChevronLeft className="w-4 h-4" />
             <span>Previous</span>
@@ -333,7 +333,7 @@ const OnboardingFlow = () => {
           {currentStep === steps.length - 1 ? (
             <Button
               onClick={handleSubmit}
-              className="bg-green-600 hover:bg-green-700 flex items-center space-x-2"
+              className="bg-cyan-600 hover:bg-cyan-700 text-white flex items-center space-x-2"
             >
               <Check className="w-4 h-4" />
               <span>Complete Registration</span>
@@ -342,7 +342,7 @@ const OnboardingFlow = () => {
             <Button
               onClick={nextStep}
               disabled={!isStepValid()}
-              className="flex items-center space-x-2"
+              className="bg-cyan-600 hover:bg-cyan-700 text-white flex items-center space-x-2"
             >
               <span>Next</span>
               <ChevronRight className="w-4 h-4" />

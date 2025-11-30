@@ -66,67 +66,67 @@ const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({ data, onUpdate }) =
     <div className="space-y-6">
       <div className="grid md:grid-cols-2 gap-6">
         <div className="space-y-2">
-          <Label htmlFor="name">Full Name *</Label>
+          <Label htmlFor="name" className="text-slate-300">Full Name *</Label>
           <Input
             id="name"
             value={formData.name}
             onChange={(e) => handleChange("name", e.target.value)}
             placeholder="Enter your full name"
-            className="w-full"
+            className="w-full border-slate-700/50 bg-slate-800/30 text-slate-100 placeholder:text-slate-500"
           />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="email">President University Email *</Label>
+          <Label htmlFor="email" className="text-slate-300">President University Email *</Label>
           <Input
             id="email"
             type="email"
             value={formData.email}
             onChange={(e) => handleChange("email", e.target.value)}
             placeholder="name@student.presuniv.ac.id"
-            className="w-full"
+            className="w-full border-slate-700/50 bg-slate-800/30 text-slate-100 placeholder:text-slate-500"
           />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="password">Password *</Label>
+          <Label htmlFor="password" className="text-slate-300">Password *</Label>
           <Input
             id="password"
             type="password"
             value={formData.password}
             onChange={(e) => handleChange("password", e.target.value)}
             placeholder="At least 6 characters"
-            className="w-full"
+            className="w-full border-slate-700/50 bg-slate-800/30 text-slate-100 placeholder:text-slate-500"
           />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="confirmPassword">Confirm Password *</Label>
+          <Label htmlFor="confirmPassword" className="text-slate-300">Confirm Password *</Label>
           <Input
             id="confirmPassword"
             type="password"
             value={formData.confirmPassword}
             onChange={(e) => handleChange("confirmPassword", e.target.value)}
             placeholder="Re-enter your password"
-            className="w-full"
+            className="w-full border-slate-700/50 bg-slate-800/30 text-slate-100 placeholder:text-slate-500"
           />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="studentId">Student ID (NIM) *</Label>
+          <Label htmlFor="studentId" className="text-slate-300">Student ID (NIM) *</Label>
           <Input
             id="studentId"
             value={formData.studentId}
             onChange={(e) => handleChange("studentId", e.target.value)}
             placeholder="Example: 202201001"
-            className="w-full"
+            className="w-full border-slate-700/50 bg-slate-800/30 text-slate-100 placeholder:text-slate-500"
           />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="year">Year of Study *</Label>
+          <Label htmlFor="year" className="text-slate-300">Year of Study *</Label>
           <Select value={formData.year} onValueChange={(value) => handleChange("year", value)}>
-            <SelectTrigger>
+            <SelectTrigger className="border-slate-700/50 bg-slate-800/30 text-slate-100">
               <SelectValue placeholder="Select year of study" />
             </SelectTrigger>
             <SelectContent>
@@ -139,9 +139,9 @@ const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({ data, onUpdate }) =
         </div>
 
         <div className="space-y-2 md:col-span-2">
-          <Label htmlFor="major">Major *</Label>
+          <Label htmlFor="major" className="text-slate-300">Major *</Label>
           <Select value={formData.major} onValueChange={(value) => handleChange("major", value)}>
-            <SelectTrigger>
+            <SelectTrigger className="border-slate-700/50 bg-slate-800/30 text-slate-100">
               <SelectValue placeholder="Select your major" />
             </SelectTrigger>
             <SelectContent>

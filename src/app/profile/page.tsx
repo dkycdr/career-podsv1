@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -12,7 +12,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { ArrowLeft, Edit, Award, Target, Zap } from 'lucide-react';
 
-export default function ProfilePage() {
+function ProfileContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const isEditMode = searchParams.get('edit') === 'true';
@@ -421,5 +421,13 @@ export default function ProfilePage() {
         </Card>
       </div>
     </div>
+  );
+}
+
+export default function ProfilePage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen bg-slate-950"><div className="text-slate-400">Loading...</div></div>}>
+      <ProfileContent />
+    </Suspense>
   );
 }

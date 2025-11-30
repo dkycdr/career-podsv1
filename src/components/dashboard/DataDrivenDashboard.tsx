@@ -72,11 +72,11 @@ const Modal = ({ isOpen, onClose, children, title }: any) => {
   if (!isOpen) return null;
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-200">
-        <div className="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 flex justify-between items-center">
-          <h2 className="text-xl font-bold text-slate-900">{title}</h2>
-          <button onClick={onClose} className="p-1 hover:bg-slate-100 rounded-lg transition-colors">
-            <X className="w-5 h-5 text-slate-600" />
+      <div className="glass-alt rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-200 bg-slate-900/40 border border-slate-700/50">
+        <div className="sticky top-0 bg-slate-900/40 border-b border-slate-700/50 px-6 py-4 flex justify-between items-center">
+          <h2 className="text-xl font-bold text-slate-100">{title}</h2>
+          <button onClick={onClose} className="p-1 hover:bg-slate-800 rounded-lg transition-colors">
+            <X className="w-5 h-5 text-slate-400" />
           </button>
         </div>
         <div className="p-6">
@@ -642,46 +642,46 @@ export default function InteractiveDashboard() {
 
   if (userLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading your personalized dashboard...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-400 mx-auto mb-4"></div>
+          <p className="text-slate-400">Loading your personalized dashboard...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    <div className="min-h-screen bg-slate-950 text-slate-100">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-50">
+      <header className="bg-slate-900/50 backdrop-blur-sm border-b border-cyan-500/10 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-5">
             {/* Left: Logo & Title */}
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-md">
+              <div className="w-10 h-10 gradient-brand rounded-xl flex items-center justify-center glow-sm">
                 <Users className="w-6 h-6 text-white" />
               </div>
               <div className="flex flex-col">
-                <h1 className="text-2xl font-bold text-slate-900">Career Explorer</h1>
-                <p className="text-xs text-slate-500">Grow together in pods</p>
+                <h1 className="text-2xl font-bold gradient-text">Career Explorer</h1>
+                <p className="text-xs text-slate-400">Grow together in pods</p>
               </div>
             </div>
 
             {/* Right: User & Actions */}
             <div className="flex items-center space-x-5">
-              <Button variant="ghost" size="icon" className="relative hover:bg-slate-100">
-                <Bell className="w-5 h-5 text-slate-600" />
+              <Button variant="ghost" size="icon" className="relative hover:bg-slate-800/50">
+                <Bell className="w-5 h-5 text-slate-400" />
                 <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full"></span>
               </Button>
-              <Button variant="ghost" size="icon" onClick={() => setSearchModal(true)} className="hover:bg-slate-100">
-                <Search className="w-5 h-5 text-slate-600" />
+              <Button variant="ghost" size="icon" onClick={() => setSearchModal(true)} className="hover:bg-slate-800/50">
+                <Search className="w-5 h-5 text-slate-400" />
               </Button>
               
-              <div className="flex items-center space-x-3 pl-5 border-l border-slate-200">
+              <div className="flex items-center space-x-3 pl-5 border-l border-slate-700/50">
                 <div className="text-right">
-                  <p className="text-sm font-semibold text-slate-900">{user?.name || 'User'}</p>
-                  <p className="text-xs text-slate-500">{user?.major || 'Computer Science'}</p>
+                  <p className="text-sm font-semibold text-slate-100">{user?.name || 'User'}</p>
+                  <p className="text-xs text-slate-400">{user?.major || 'Computer Science'}</p>
                 </div>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -703,7 +703,7 @@ export default function InteractiveDashboard() {
                 </DropdownMenu>
               </div>
 
-              <Button variant="outline" size="sm" onClick={handleLogout} className="text-slate-600 hover:text-slate-900">
+              <Button variant="outline" size="sm" onClick={handleLogout} className="border-slate-700/50 text-slate-300 hover:bg-slate-800">
                 <LogOut className="w-4 h-4 mr-2" />
                 Logout
               </Button>
@@ -713,7 +713,7 @@ export default function InteractiveDashboard() {
       </header>
 
       {/* Navigation Tabs - Improved */}
-      <div className="bg-white border-b border-slate-200">
+      <div className="glass-alt border-b border-slate-700/50 bg-slate-900/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="flex space-x-1">
             {[
@@ -730,8 +730,8 @@ export default function InteractiveDashboard() {
                   onClick={() => setActiveTab(tab.id as any)}
                   className={`flex items-center space-x-2 px-4 py-4 border-b-2 font-medium transition-all ${
                     isActive
-                      ? 'border-blue-600 text-blue-600 bg-blue-50/50'
-                      : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                      ? 'border-cyan-400 text-cyan-400 bg-slate-800/50'
+                      : 'border-transparent text-slate-400 hover:text-slate-300 hover:bg-slate-800/30'
                   }`}
                 >
                   <Icon className="w-4 h-4" />
@@ -759,142 +759,142 @@ export default function InteractiveDashboard() {
           <div className="space-y-8">
             {/* Welcome Section */}
             <div>
-              <h1 className="text-4xl font-bold text-slate-900 mb-2">Welcome back, {user?.name}! 👋</h1>
-              <p className="text-slate-600">Here's your career exploration progress at a glance</p>
+              <h1 className="text-4xl font-bold text-slate-100 mb-2">Welcome back, {user?.name}! 👋</h1>
+              <p className="text-slate-400">Here's your career exploration progress at a glance</p>
             </div>
 
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div 
-                className="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
+                className="glass-alt card-border border-slate-700/50 bg-slate-900/40 rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
                 style={{ animation: 'fadeInUp 0.6s ease-out forwards' }}
               >
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm font-medium text-blue-700 group-hover:text-blue-900 transition-colors">Active Pods</span>
-                  <Users className="w-5 h-5 text-blue-600 group-hover:scale-110 transition-transform" />
+                  <span className="text-sm font-medium text-slate-400 group-hover:text-slate-300 transition-colors">Active Pods</span>
+                  <Users className="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform" />
                 </div>
-                <p className="text-3xl font-bold text-blue-900">{pods.length}</p>
-                <p className="text-xs text-blue-700 mt-1">You're in {pods.length} {pods.length === 1 ? 'pod' : 'pods'}</p>
+                <p className="text-3xl font-bold text-slate-100">{pods.length}</p>
+                <p className="text-xs text-slate-400 mt-1">You're in {pods.length} {pods.length === 1 ? 'pod' : 'pods'}</p>
               </div>
 
               <div 
-                className="bg-gradient-to-br from-green-50 to-green-100 border border-green-200 rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
+                className="glass-alt card-border border-slate-700/50 bg-slate-900/40 rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
                 style={{ animation: 'fadeInUp 0.6s ease-out 0.1s forwards' }}
               >
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm font-medium text-green-700 group-hover:text-green-900 transition-colors">Upcoming Meetings</span>
-                  <Calendar className="w-5 h-5 text-green-600 group-hover:scale-110 transition-transform" />
+                  <span className="text-sm font-medium text-slate-400 group-hover:text-slate-300 transition-colors">Upcoming Meetings</span>
+                  <Calendar className="w-5 h-5 text-purple-400 group-hover:scale-110 transition-transform" />
                 </div>
-                <p className="text-3xl font-bold text-green-900">{meetings.length}</p>
-                <p className="text-xs text-green-700 mt-1">Scheduled this week</p>
+                <p className="text-3xl font-bold text-slate-100">{meetings.length}</p>
+                <p className="text-xs text-slate-400 mt-1">Scheduled this week</p>
               </div>
 
               <div 
-                className="bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200 rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
+                className="glass-alt card-border border-slate-700/50 bg-slate-900/40 rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
                 style={{ animation: 'fadeInUp 0.6s ease-out 0.2s forwards' }}
               >
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm font-medium text-purple-700 group-hover:text-purple-900 transition-colors">Career Goals</span>
-                  <Target className="w-5 h-5 text-purple-600 group-hover:scale-110 transition-transform" />
+                  <span className="text-sm font-medium text-slate-400 group-hover:text-slate-300 transition-colors">Career Goals</span>
+                  <Target className="w-5 h-5 text-purple-400 group-hover:scale-110 transition-transform" />
                 </div>
-                <p className="text-3xl font-bold text-purple-900">{careerInterests.length}</p>
-                <p className="text-xs text-purple-700 mt-1">Active {careerInterests.length === 1 ? 'goal' : 'goals'}</p>
+                <p className="text-3xl font-bold text-slate-100">{careerInterests.length}</p>
+                <p className="text-xs text-slate-400 mt-1">Active {careerInterests.length === 1 ? 'goal' : 'goals'}</p>
               </div>
 
               <div 
-                className="bg-gradient-to-br from-yellow-50 to-yellow-100 border border-yellow-200 rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
+                className="glass-alt card-border border-slate-700/50 bg-slate-900/40 rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
                 style={{ animation: 'fadeInUp 0.6s ease-out 0.3s forwards' }}
               >
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm font-medium text-yellow-700 group-hover:text-yellow-900 transition-colors">Achievements</span>
-                  <Star className="w-5 h-5 text-yellow-600 group-hover:scale-110 transition-transform" />
+                  <span className="text-sm font-medium text-slate-400 group-hover:text-slate-300 transition-colors">Achievements</span>
+                  <Star className="w-5 h-5 text-yellow-400 group-hover:scale-110 transition-transform" />
                 </div>
-                <p className="text-3xl font-bold text-yellow-900">{progress.filter((p: any) => p.achievedAt).length}</p>
-                <p className="text-xs text-yellow-700 mt-1">Milestones unlocked</p>
+                <p className="text-3xl font-bold text-slate-100">{progress.filter((p: any) => p.achievedAt).length}</p>
+                <p className="text-xs text-slate-400 mt-1">Milestones unlocked</p>
               </div>
             </div>
 
             {/* Quick Actions */}
-            <div className="bg-white border border-slate-200 rounded-xl p-8">
-              <h2 className="text-xl font-semibold text-slate-900 mb-6">Quick Actions</h2>
+            <div className="glass-alt card-border border-slate-700/50 bg-slate-900/40 rounded-xl p-8">
+              <h2 className="text-xl font-semibold text-slate-100 mb-6">Quick Actions</h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <button 
                   onClick={handleCreatePod}
-                  className="flex flex-col items-center justify-center p-6 rounded-lg border border-slate-200 hover:border-blue-300 hover:bg-blue-50 transition-all group"
+                  className="flex flex-col items-center justify-center p-6 rounded-lg border border-slate-700/50 bg-slate-800/30 hover:border-cyan-500/50 hover:bg-slate-800/50 transition-all group"
                 >
-                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-3 group-hover:bg-blue-200 transition-colors">
-                    <Users className="w-6 h-6 text-blue-600" />
+                  <div className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center mb-3 group-hover:bg-slate-700 transition-colors">
+                    <Users className="w-6 h-6 text-cyan-400" />
                   </div>
-                  <span className="font-medium text-slate-900 text-sm">Create Pod</span>
+                  <span className="font-medium text-slate-300 text-sm">Create Pod</span>
                 </button>
 
                 <button 
                   onClick={handleDiscoverPods}
-                  className="flex flex-col items-center justify-center p-6 rounded-lg border border-slate-200 hover:border-green-300 hover:bg-green-50 transition-all group"
+                  className="flex flex-col items-center justify-center p-6 rounded-lg border border-slate-700/50 bg-slate-800/30 hover:border-cyan-500/50 hover:bg-slate-800/50 transition-all group"
                 >
-                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-3 group-hover:bg-green-200 transition-colors">
-                    <Search className="w-6 h-6 text-green-600" />
+                  <div className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center mb-3 group-hover:bg-slate-700 transition-colors">
+                    <Search className="w-6 h-6 text-cyan-400" />
                   </div>
-                  <span className="font-medium text-slate-900 text-sm">Find Pods</span>
+                  <span className="font-medium text-slate-300 text-sm">Find Pods</span>
                 </button>
 
                 <button 
                   onClick={handleSetGoal}
-                  className="flex flex-col items-center justify-center p-6 rounded-lg border border-slate-200 hover:border-purple-300 hover:bg-purple-50 transition-all group"
+                  className="flex flex-col items-center justify-center p-6 rounded-lg border border-slate-700/50 bg-slate-800/30 hover:border-cyan-500/50 hover:bg-slate-800/50 transition-all group"
                 >
-                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-3 group-hover:bg-purple-200 transition-colors">
-                    <Target className="w-6 h-6 text-purple-600" />
+                  <div className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center mb-3 group-hover:bg-slate-700 transition-colors">
+                    <Target className="w-6 h-6 text-purple-400" />
                   </div>
-                  <span className="font-medium text-slate-900 text-sm">Set Goals</span>
+                  <span className="font-medium text-slate-300 text-sm">Set Goals</span>
                 </button>
 
                 <button 
                   onClick={handleFindMentor}
-                  className="flex flex-col items-center justify-center p-6 rounded-lg border border-slate-200 hover:border-orange-300 hover:bg-orange-50 transition-all group"
+                  className="flex flex-col items-center justify-center p-6 rounded-lg border border-slate-700/50 bg-slate-800/30 hover:border-cyan-500/50 hover:bg-slate-800/50 transition-all group"
                 >
-                  <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-3 group-hover:bg-orange-200 transition-colors">
-                    <UserCheck className="w-6 h-6 text-orange-600" />
+                  <div className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center mb-3 group-hover:bg-slate-700 transition-colors">
+                    <UserCheck className="w-6 h-6 text-purple-400" />
                   </div>
-                  <span className="font-medium text-slate-900 text-sm">Find Mentor</span>
+                  <span className="font-medium text-slate-300 text-sm">Find Mentor</span>
                 </button>
               </div>
             </div>
 
             {/* Achievement Badges Section */}
-            <div className="bg-white border border-slate-200 rounded-xl p-8">
+            <div className="glass-alt card-border border-slate-700/50 bg-slate-900/40 rounded-xl p-8">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h2 className="text-xl font-semibold text-slate-900">Your Achievements</h2>
-                  <p className="text-sm text-slate-600 mt-1">Milestones you've unlocked</p>
+                  <h2 className="text-xl font-semibold text-slate-100">Your Achievements</h2>
+                  <p className="text-sm text-slate-400 mt-1">Milestones you've unlocked</p>
                 </div>
                 {progress.filter((p: any) => p.achievedAt).length > 0 && (
-                  <span className="text-2xl font-bold text-yellow-600">{progress.filter((p: any) => p.achievedAt).length}</span>
+                  <span className="text-2xl font-bold text-yellow-400">{progress.filter((p: any) => p.achievedAt).length}</span>
                 )}
               </div>
 
               {progress.filter((p: any) => p.achievedAt).length === 0 ? (
                 <div className="text-center py-8">
-                  <Star className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                  <p className="text-slate-600">No achievements yet. Start working on your goals!</p>
+                  <Star className="w-12 h-12 text-slate-600 mx-auto mb-3" />
+                  <p className="text-slate-400">No achievements yet. Start working on your goals!</p>
                 </div>
               ) : (
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                   {progress.filter((p: any) => p.achievedAt).map((achievement: any, idx: number) => (
                     <div
                       key={achievement.id}
-                      className="flex flex-col items-center p-4 rounded-lg bg-gradient-to-br from-yellow-50 to-amber-50 border border-yellow-200 hover:shadow-md transition-all"
+                      className="flex flex-col items-center p-4 rounded-lg glass-alt border border-slate-700/50 bg-slate-800/30 hover:shadow-md transition-all"
                       style={{
                         animation: `fadeInUp 0.5s ease-out ${idx * 0.05}s forwards`,
                         opacity: 0
                       }}
                     >
-                      <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mb-2">
-                        <Star className="w-6 h-6 text-yellow-600 fill-yellow-600" />
+                      <div className="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center mb-2">
+                        <Star className="w-6 h-6 text-yellow-400 fill-yellow-400" />
                       </div>
-                      <p className="text-xs font-semibold text-slate-900 text-center line-clamp-2">
+                      <p className="text-xs font-semibold text-slate-100 text-center line-clamp-2">
                         Skill Level {achievement.level}
                       </p>
-                      <p className="text-xs text-slate-600 mt-1">
+                      <p className="text-xs text-slate-400 mt-1">
                         {achievement.achievedAt ? new Date(achievement.achievedAt).toLocaleDateString() : ''}
                       </p>
                     </div>
@@ -910,10 +910,10 @@ export default function InteractiveDashboard() {
           <div className="space-y-6">
             <div className="flex justify-between items-center">
               <div>
-                <h2 className="text-3xl font-bold text-slate-900">My Pods</h2>
-                <p className="text-slate-600 mt-1">Join or create pods to collaborate with peers</p>
+                <h2 className="text-3xl font-bold text-slate-100">My Pods</h2>
+                <p className="text-slate-400 mt-1">Join or create pods to collaborate with peers</p>
               </div>
-              <Button onClick={handleCreatePod} className="bg-blue-600 hover:bg-blue-700">
+              <Button onClick={handleCreatePod} className="bg-cyan-600 hover:bg-cyan-700">
                 <Plus className="w-4 h-4 mr-2" />
                 Create Pod
               </Button>
@@ -921,17 +921,17 @@ export default function InteractiveDashboard() {
 
             {podsLoading ? (
               <div className="text-center py-12">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-                <p className="mt-4 text-slate-600">Loading pods...</p>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-400 mx-auto"></div>
+                <p className="mt-4 text-slate-400">Loading pods...</p>
               </div>
             ) : pods.length === 0 ? (
-              <div className="border-2 border-dashed border-slate-200 rounded-lg p-12 text-center">
-                <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="border-2 border-dashed border-slate-700/50 rounded-lg p-12 text-center bg-slate-900/20">
+                <div className="w-16 h-16 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Users className="w-8 h-8 text-slate-400" />
                 </div>
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">No Pods Yet</h3>
-                <p className="text-slate-600 mb-6 max-w-sm mx-auto">Explore template pods or create your own to get started with your career exploration</p>
-                <Button onClick={handleCreatePod} className="bg-blue-600 hover:bg-blue-700">
+                <h3 className="text-lg font-semibold text-slate-100 mb-2">No Pods Yet</h3>
+                <p className="text-slate-400 mb-6 max-w-sm mx-auto">Explore template pods or create your own to get started with your career exploration</p>
+                <Button onClick={handleCreatePod} className="bg-cyan-600 hover:bg-cyan-700">
                   <Plus className="w-4 h-4 mr-2" />
                   Create Your First Pod
                 </Button>
@@ -941,7 +941,7 @@ export default function InteractiveDashboard() {
                 {pods.map((pod: any, idx: number) => (
                   <div 
                     key={pod.id}
-                    className="bg-white border border-slate-200 rounded-xl p-6 hover:shadow-xl hover:border-slate-400 hover:-translate-y-1 transition-all duration-300 group"
+                    className="glass-alt card-border border-slate-700/50 bg-slate-900/40 rounded-xl p-6 hover:shadow-xl hover:border-cyan-500/30 hover:-translate-y-1 transition-all duration-300 group"
                     style={{
                       animation: `fadeInUp 0.5s ease-out ${idx * 0.1}s forwards`,
                       opacity: 0
@@ -950,27 +950,27 @@ export default function InteractiveDashboard() {
                     <div className="flex justify-between items-start mb-4">
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
-                          <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center text-white font-semibold">
+                          <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center text-white font-semibold">
                             {pod.name.charAt(0).toUpperCase()}
                           </div>
                           <div>
-                            <h3 className="font-semibold text-slate-900 text-lg">{pod.name}</h3>
+                            <h3 className="font-semibold text-slate-100 text-lg">{pod.name}</h3>
                             {pod.isTemplate && (
-                              <span className="text-xs px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full font-medium">Template</span>
+                              <span className="text-xs px-2 py-0.5 bg-slate-800 text-cyan-300 rounded-full font-medium">Template</span>
                             )}
                           </div>
                         </div>
-                        <p className="text-slate-600 text-sm ml-13">{pod.description}</p>
+                        <p className="text-slate-400 text-sm ml-13">{pod.description}</p>
                       </div>
                       <Badge 
                         variant={pod.status === 'ACTIVE' ? 'default' : 'secondary'}
-                        className={pod.status === 'ACTIVE' ? 'bg-green-100 text-green-700 border-green-200' : ''}
+                        className={pod.status === 'ACTIVE' ? 'bg-green-900/50 text-green-300 border-green-700/50' : ''}
                       >
                         {pod.status || 'Active'}
                       </Badge>
                     </div>
 
-                    <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                    <div className="flex items-center justify-between pt-4 border-t border-slate-700/50">
                       <div className="flex items-center gap-4">
                         <div className="flex items-center gap-2">
                           <div className="flex -space-x-2.5">
@@ -987,7 +987,7 @@ export default function InteractiveDashboard() {
                               </div>
                             )}
                           </div>
-                          <span className="text-sm font-medium text-slate-600">
+                          <span className="text-sm font-medium text-slate-400">
                             {pod.memberships?.length || 0} {pod.memberships?.length === 1 ? 'member' : 'members'}
                           </span>
                         </div>
@@ -995,8 +995,16 @@ export default function InteractiveDashboard() {
                       <div className="flex gap-2">
                         <Button 
                           size="sm"
-                          onClick={() => handleScheduleMeeting(pod.id)}
+                          onClick={() => window.location.href = `/pods/${pod.id}`}
                           className="bg-blue-600 hover:bg-blue-700 text-white"
+                        >
+                          <MessageSquare className="w-4 h-4 mr-1.5" />
+                          Chat
+                        </Button>
+                        <Button 
+                          size="sm"
+                          onClick={() => handleScheduleMeeting(pod.id)}
+                          className="bg-cyan-600 hover:bg-cyan-700 text-white"
                         >
                           <Calendar className="w-4 h-4 mr-1.5" />
                           Meet
@@ -1013,12 +1021,12 @@ export default function InteractiveDashboard() {
                           size="sm"
                           onClick={() => handleOpenMembers(pod)}
                           variant="outline"
-                          className="border-slate-200 hover:bg-slate-50"
+                          className="border-slate-700/50 text-slate-300 hover:bg-slate-800"
                         >
                           <Users className="w-4 h-4 mr-1" />
                           Members
                         </Button>
-                        <Button size="sm" variant="outline" className="border-slate-200 hover:bg-slate-50">
+                        <Button size="sm" variant="outline" className="border-slate-700/50 text-slate-300 hover:bg-slate-800">
                           <Settings className="w-4 h-4" />
                         </Button>
                       </div>
@@ -1034,42 +1042,44 @@ export default function InteractiveDashboard() {
         {activeTab === 'progress' && (
           <div className="space-y-6">
             <div>
-              <h2 className="text-3xl font-bold text-slate-900">Career Progress</h2>
-              <p className="text-slate-600 mt-1">Track your skill development and career milestones</p>
+              <h2 className="text-3xl font-bold text-slate-100">Career Progress</h2>
+              <p className="text-slate-400 mt-1">Track your skill development and career milestones</p>
             </div>
 
             {progressLoading ? (
               <div className="text-center py-12">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-                <p className="mt-4 text-slate-600">Loading progress data...</p>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-400 mx-auto"></div>
+                <p className="mt-4 text-slate-400">Loading progress data...</p>
               </div>
             ) : (
-              <ProgressDashboard
-                userId={userId || ''}
-                skills={skills}
-                careerInterests={careerInterests}
-                progress={progress}
-                onRefresh={() => {
-                  // Trigger refresh
-                  const fetchProgress = async () => {
-                    setProgressLoading(true);
-                    try {
-                      const res = await fetch(`/api/progress?userId=${userId}`);
-                      const data = await res.json();
-                      if (data.success) {
-                        setProgress(data.progress || []);
-                        setSkills(data.skills || []);
-                        setCareerInterests(data.careerInterests || []);
+              <div>
+                <ProgressDashboard
+                  userId={userId || ''}
+                  skills={skills}
+                  careerInterests={careerInterests}
+                  progress={progress}
+                  onRefresh={() => {
+                    // Trigger refresh
+                    const fetchProgress = async () => {
+                      setProgressLoading(true);
+                      try {
+                        const res = await fetch(`/api/progress?userId=${userId}`);
+                        const data = await res.json();
+                        if (data.success) {
+                          setProgress(data.progress || []);
+                          setSkills(data.skills || []);
+                          setCareerInterests(data.careerInterests || []);
+                        }
+                      } catch (err) {
+                        console.error('Error fetching progress:', err);
+                      } finally {
+                        setProgressLoading(false);
                       }
-                    } catch (err) {
-                      console.error('Error fetching progress:', err);
-                    } finally {
-                      setProgressLoading(false);
-                    }
-                  };
-                  fetchProgress();
-                }}
-              />
+                    };
+                    fetchProgress();
+                  }}
+                />
+              </div>
             )}
           </div>
         )}
@@ -1077,43 +1087,43 @@ export default function InteractiveDashboard() {
         {activeTab === 'meetings' && (
           <div className="space-y-6">
             <div>
-              <h2 className="text-3xl font-bold text-slate-900">Upcoming Meetings</h2>
-              <p className="text-slate-600 mt-1">Connect with your pod members and mentors</p>
+              <h2 className="text-3xl font-bold text-slate-100">Upcoming Meetings</h2>
+              <p className="text-slate-400 mt-1">Connect with your pod members and mentors</p>
             </div>
 
             {meetingsLoading ? (
               <div className="text-center py-12">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-                <p className="mt-4 text-slate-600">Loading meetings...</p>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-400 mx-auto"></div>
+                <p className="mt-4 text-slate-400">Loading meetings...</p>
               </div>
             ) : meetingsError ? (
-              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-                <p className="text-sm text-red-700">{meetingsError}</p>
+              <div className="bg-red-900/30 border border-red-700/50 rounded-lg p-4">
+                <p className="text-sm text-red-300">{meetingsError}</p>
               </div>
             ) : meetings.length === 0 ? (
-              <div className="border-2 border-dashed border-slate-200 rounded-lg p-12 text-center">
-                <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="border-2 border-dashed border-slate-700/50 rounded-lg p-12 text-center bg-slate-900/20">
+                <div className="w-16 h-16 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Calendar className="w-8 h-8 text-slate-400" />
                 </div>
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">No Meetings Scheduled</h3>
-                <p className="text-slate-600 max-w-sm mx-auto">Your calendar is empty. Schedule meetings with your pod members to start collaborating on your career goals.</p>
+                <h3 className="text-lg font-semibold text-slate-100 mb-2">No Meetings Scheduled</h3>
+                <p className="text-slate-400 max-w-sm mx-auto">Your calendar is empty. Schedule meetings with your pod members to start collaborating on your career goals.</p>
               </div>
             ) : (
               <div className="space-y-4">
                 {meetings.map((m: any) => (
                   <div 
                     key={m.id} 
-                    className="bg-white border border-slate-200 rounded-xl p-5 hover:shadow-lg hover:border-slate-300 transition-all duration-200"
+                    className="glass-alt card-border border-slate-700/50 bg-slate-900/40 rounded-xl p-5 hover:shadow-lg hover:border-cyan-500/30 transition-all duration-200"
                   >
                     <div className="flex justify-between items-start gap-4">
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-2">
-                          <h3 className="font-semibold text-slate-900 text-lg">{m.title}</h3>
-                          <Badge className="bg-blue-100 text-blue-700 border-blue-200 capitalize">
+                          <h3 className="font-semibold text-slate-100 text-lg">{m.title}</h3>
+                          <Badge className="bg-slate-800 text-cyan-300 border-slate-700 capitalize">
                             {m.type || 'video'}
                           </Badge>
                         </div>
-                        <div className="flex items-center gap-3 text-sm text-slate-600 mb-3">
+                        <div className="flex items-center gap-3 text-sm text-slate-400 mb-3">
                           <div className="flex items-center gap-1">
                             <Building2 className="w-4 h-4" />
                             <span>{m.podName || 'Pod'}</span>
@@ -1125,7 +1135,7 @@ export default function InteractiveDashboard() {
                           </div>
                         </div>
                         {m.mentor && (
-                          <div className="text-sm text-slate-600">
+                          <div className="text-sm text-slate-400">
                             <span className="font-medium">Mentor:</span> {m.mentor}
                           </div>
                         )}
@@ -1134,7 +1144,7 @@ export default function InteractiveDashboard() {
                         <Button 
                           size="sm"
                           onClick={() => handleJoinMeeting(m)}
-                          className="bg-blue-600 hover:bg-blue-700 text-white"
+                          className="bg-cyan-600 hover:bg-cyan-700 text-white"
                         >
                           <Video className="w-4 h-4 mr-1.5" />
                           Join Call
@@ -1142,7 +1152,7 @@ export default function InteractiveDashboard() {
                         <Button 
                           size="sm" 
                           variant="outline"
-                          className="border-slate-200 hover:bg-slate-50"
+                          className="border-slate-700/50 text-slate-300 hover:bg-slate-800"
                         >
                           <Settings className="w-4 h-4" />
                         </Button>
@@ -1157,7 +1167,7 @@ export default function InteractiveDashboard() {
       </main>
 
       {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t">
+      <div className="fixed bottom-0 left-0 right-0 glass-alt border-t border-slate-700/50 bg-slate-900/40">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex justify-around py-3">
             <Button 
@@ -1165,7 +1175,7 @@ export default function InteractiveDashboard() {
               size="sm"
               onClick={() => setActiveTab('overview')}
               className={`flex flex-col items-center space-y-1 ${
-                activeTab === 'overview' ? 'text-blue-600' : 'text-gray-600'
+                activeTab === 'overview' ? 'text-cyan-400' : 'text-slate-400'
               }`}
             >
               <Target className="w-4 h-4" />
@@ -1176,7 +1186,7 @@ export default function InteractiveDashboard() {
               size="sm"
               onClick={() => setActiveTab('pods')}
               className={`flex flex-col items-center space-y-1 ${
-                activeTab === 'pods' ? 'text-blue-600' : 'text-gray-600'
+                activeTab === 'pods' ? 'text-cyan-400' : 'text-slate-400'
               }`}
             >
               <Users className="w-4 h-4" />
@@ -1187,7 +1197,7 @@ export default function InteractiveDashboard() {
               size="sm"
               onClick={() => setActiveTab('meetings')}
               className={`flex flex-col items-center space-y-1 ${
-                activeTab === 'meetings' ? 'text-blue-600' : 'text-gray-600'
+                activeTab === 'meetings' ? 'text-cyan-400' : 'text-slate-400'
               }`}
             >
               <Calendar className="w-4 h-4" />
@@ -1198,7 +1208,7 @@ export default function InteractiveDashboard() {
               size="sm"
               onClick={() => setActiveTab('progress')}
               className={`flex flex-col items-center space-y-1 ${
-                activeTab === 'progress' ? 'text-blue-600' : 'text-gray-600'
+                activeTab === 'progress' ? 'text-cyan-400' : 'text-slate-400'
               }`}
             >
               <TrendingUp className="w-4 h-4" />
@@ -1219,19 +1229,19 @@ export default function InteractiveDashboard() {
               placeholder="e.g., Product Design Collective"
               value={podForm.name}
               onChange={(e) => setPodForm({ ...podForm, name: e.target.value })}
-              className="border-slate-200"
+              className="border-slate-700/50 bg-slate-800/30 text-slate-100 placeholder:text-slate-500"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-900 mb-2">Description</label>
+            <label className="block text-sm font-medium text-slate-300 mb-2">Description</label>
             <Textarea
               placeholder="What's this pod about? Who should join? What will you learn?"
               value={podForm.description}
               onChange={(e) => setPodForm({ ...podForm, description: e.target.value })}
-              className="border-slate-200 min-h-24"
+              className="border-slate-700/50 bg-slate-800/30 text-slate-100 placeholder:text-slate-500 min-h-24"
             />
           </div>
-          <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2">
+          <Button type="submit" className="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-medium py-2">
             <Sparkles className="w-4 h-4 mr-2" />
             Create Pod
           </Button>
@@ -1242,46 +1252,46 @@ export default function InteractiveDashboard() {
       <Modal isOpen={meetingModal} onClose={() => setMeetingModal(false)} title="📅 Schedule Meeting">
         <form onSubmit={handleScheduleMeetingSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-slate-900 mb-2">Meeting Title</label>
+            <label className="block text-sm font-medium text-slate-300 mb-2">Meeting Title</label>
             <Input
               placeholder="e.g., Weekly Sync"
               value={meetingForm.title}
               onChange={(e) => setMeetingForm({ ...meetingForm, title: e.target.value })}
-              className="border-slate-200"
+              className="border-slate-700/50 bg-slate-800/30 text-slate-100 placeholder:text-slate-500"
             />
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-900 mb-2">Date</label>
+              <label className="block text-sm font-medium text-slate-300 mb-2">Date</label>
               <Input
                 type="date"
                 value={meetingForm.date}
                 onChange={(e) => setMeetingForm({ ...meetingForm, date: e.target.value })}
-                className="border-slate-200"
+                className="border-slate-700/50 bg-slate-800/30 text-slate-100"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-900 mb-2">Time</label>
+              <label className="block text-sm font-medium text-slate-300 mb-2">Time</label>
               <Input
                 type="time"
                 value={meetingForm.time}
                 onChange={(e) => setMeetingForm({ ...meetingForm, time: e.target.value })}
-                className="border-slate-200"
+                className="border-slate-700/50 bg-slate-800/30 text-slate-100"
               />
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-900 mb-2">Max Attendees</label>
+            <label className="block text-sm font-medium text-slate-300 mb-2">Max Attendees</label>
             <Input
               type="number"
               min="2"
               max="50"
               value={meetingForm.maxAttendees}
               onChange={(e) => setMeetingForm({ ...meetingForm, maxAttendees: parseInt(e.target.value) })}
-              className="border-slate-200"
+              className="border-slate-700/50 bg-slate-800/30 text-slate-100"
             />
           </div>
-          <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2">
+          <Button type="submit" className="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-medium py-2">
             <Calendar className="w-4 h-4 mr-2" />
             Schedule Meeting
           </Button>
@@ -1292,33 +1302,33 @@ export default function InteractiveDashboard() {
       <Modal isOpen={materialsModal} onClose={() => setMaterialsModal(false)} title="📚 Pod Materials">
         <div className="space-y-6">
           {/* Add Material Form */}
-          <div className="border-b border-slate-200 pb-6">
-            <h3 className="font-semibold text-slate-900 mb-4">➕ Add New Material</h3>
+          <div className="border-b border-slate-700/50 pb-6">
+            <h3 className="font-semibold text-slate-300 mb-4">➕ Add New Material</h3>
             <form onSubmit={handleAddMaterialSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-slate-900 mb-2">Title *</label>
+                <label className="block text-sm font-medium text-slate-300 mb-2">Title *</label>
                 <Input
                   placeholder="e.g., React Hooks Guide"
                   value={materialForm.title}
                   onChange={(e) => setMaterialForm({ ...materialForm, title: e.target.value })}
-                  className="border-slate-200"
+                  className="border-slate-700/50 bg-slate-800/30 text-slate-100 placeholder:text-slate-500"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-900 mb-2">Description</label>
+                <label className="block text-sm font-medium text-slate-300 mb-2">Description</label>
                 <Input
                   placeholder="Brief description"
                   value={materialForm.description}
                   onChange={(e) => setMaterialForm({ ...materialForm, description: e.target.value })}
-                  className="border-slate-200"
+                  className="border-slate-700/50 bg-slate-800/30 text-slate-100 placeholder:text-slate-500"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-900 mb-2">Type</label>
+                <label className="block text-sm font-medium text-slate-300 mb-2">Type</label>
                 <select 
                   value={materialForm.type}
                   onChange={(e) => setMaterialForm({ ...materialForm, type: e.target.value })}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg text-slate-900"
+                  className="w-full px-3 py-2 border border-slate-700/50 rounded-lg text-slate-100 bg-slate-800/30"
                 >
                   <option value="note">📝 Note</option>
                   <option value="document">📄 Document</option>
@@ -1329,23 +1339,23 @@ export default function InteractiveDashboard() {
 
               {materialForm.type === 'note' || materialForm.type === 'document' ? (
                 <div>
-                  <label className="block text-sm font-medium text-slate-900 mb-2">Content</label>
+                  <label className="block text-sm font-medium text-slate-300 mb-2">Content</label>
                   <Textarea
                     placeholder="Enter your note or document content..."
                     value={materialForm.content}
                     onChange={(e) => setMaterialForm({ ...materialForm, content: e.target.value })}
-                    className="border-slate-200 min-h-[100px]"
+                    className="border-slate-700/50 bg-slate-800/30 text-slate-100 placeholder:text-slate-500 min-h-[100px]"
                   />
                 </div>
               ) : (
                 <div>
-                  <label className="block text-sm font-medium text-slate-900 mb-2">URL</label>
+                  <label className="block text-sm font-medium text-slate-300 mb-2">URL</label>
                   <Input
                     type="url"
                     placeholder="https://example.com"
                     value={materialForm.url}
                     onChange={(e) => setMaterialForm({ ...materialForm, url: e.target.value })}
-                    className="border-slate-200"
+                    className="border-slate-700/50 bg-slate-800/30 text-slate-100 placeholder:text-slate-500"
                   />
                 </div>
               )}
@@ -1359,21 +1369,21 @@ export default function InteractiveDashboard() {
 
           {/* Materials List */}
           <div>
-            <h3 className="font-semibold text-slate-900 mb-4">📚 Materials ({materials.length})</h3>
+            <h3 className="font-semibold text-slate-100 mb-4">📚 Materials ({materials.length})</h3>
             {materialsLoading ? (
               <div className="text-center py-6">
-                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mx-auto"></div>
-                <p className="mt-2 text-sm text-slate-600">Loading materials...</p>
+                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-cyan-400 mx-auto"></div>
+                <p className="mt-2 text-sm text-slate-400">Loading materials...</p>
               </div>
             ) : materials.length === 0 ? (
-              <div className="text-center py-6 bg-slate-50 rounded-lg">
-                <Sparkles className="w-8 h-8 text-slate-300 mx-auto mb-2" />
-                <p className="text-sm text-slate-600">No materials yet. Add one to get started!</p>
+              <div className="text-center py-6 bg-slate-800/30 rounded-lg border border-slate-700/50">
+                <Sparkles className="w-8 h-8 text-slate-500 mx-auto mb-2" />
+                <p className="text-sm text-slate-400">No materials yet. Add one to get started!</p>
               </div>
             ) : (
               <div className="space-y-3 max-h-[300px] overflow-y-auto">
                 {materials.map((material: any) => (
-                  <div key={material.id} className="bg-slate-50 border border-slate-200 rounded-lg p-4 hover:bg-slate-100 transition-colors">
+                  <div key={material.id} className="bg-slate-800/30 border border-slate-700/50 rounded-lg p-4 hover:bg-slate-800/50 transition-colors">
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
@@ -1383,18 +1393,18 @@ export default function InteractiveDashboard() {
                             {material.type === 'resource' && '🔗'}
                             {material.type === 'link' && '🌐'}
                           </span>
-                          <h4 className="font-semibold text-slate-900">{material.title}</h4>
+                          <h4 className="font-semibold text-slate-100">{material.title}</h4>
                         </div>
                         {material.description && (
-                          <p className="text-sm text-slate-600 mb-2">{material.description}</p>
+                          <p className="text-sm text-slate-400 mb-2">{material.description}</p>
                         )}
                         {material.content && (
-                          <p className="text-sm text-slate-700 bg-white p-2 rounded border border-slate-200 mb-2 line-clamp-2">
+                          <p className="text-sm text-slate-300 bg-slate-800/50 p-2 rounded border border-slate-700/50 mb-2 line-clamp-2">
                             {material.content}
                           </p>
                         )}
                         {material.url && (
-                          <a href={material.url} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline block mb-2">
+                          <a href={material.url} target="_blank" rel="noopener noreferrer" className="text-sm text-cyan-400 hover:underline block mb-2">
                             {material.url}
                           </a>
                         )}
@@ -1425,22 +1435,22 @@ export default function InteractiveDashboard() {
         <div className="space-y-4">
           {selectedPodMembers.length === 0 ? (
             <div className="text-center py-6">
-              <p className="text-sm text-slate-600">No members found.</p>
+              <p className="text-sm text-slate-400">No members found.</p>
             </div>
           ) : (
             <div className="space-y-3 max-h-[400px] overflow-y-auto">
               {selectedPodMembers.map((m: any) => (
-                <div key={m.id} className="flex items-center justify-between p-3 border border-slate-100 rounded-lg">
+                <div key={m.id} className="flex items-center justify-between p-3 border border-slate-700/50 rounded-lg bg-slate-800/30 hover:bg-slate-800/50 transition-colors">
                   <div className="flex items-center gap-3">
                     <Avatar className="w-9 h-9">
-                      {m.user?.avatar ? <AvatarImage src={m.user.avatar} alt={m.user?.name} /> : <AvatarFallback className="bg-slate-300 text-white">{m.user?.name?.charAt(0)}</AvatarFallback>}
+                      {m.user?.avatar ? <AvatarImage src={m.user.avatar} alt={m.user?.name} /> : <AvatarFallback className="bg-cyan-600/50 text-slate-100">{m.user?.name?.charAt(0)}</AvatarFallback>}
                     </Avatar>
                     <div>
-                      <a href={`/user/${m.user?.id}`} className="font-medium text-slate-900 hover:underline">{m.user?.name || 'Unknown'}</a>
-                      <div className="text-xs text-slate-500">{m.role || 'member'}</div>
+                      <a href={`/user/${m.user?.id}`} className="font-medium text-slate-100 hover:text-cyan-400 transition-colors">{m.user?.name || 'Unknown'}</a>
+                      <div className="text-xs text-slate-400">{m.role || 'member'}</div>
                     </div>
                   </div>
-                  <div className="text-sm text-slate-500">Joined: {m.joinedAt ? new Date(m.joinedAt).toLocaleDateString() : 'N/A'}</div>
+                  <div className="text-sm text-slate-400">Joined: {m.joinedAt ? new Date(m.joinedAt).toLocaleDateString() : 'N/A'}</div>
                 </div>
               ))}
             </div>
@@ -1450,40 +1460,77 @@ export default function InteractiveDashboard() {
 
       {/* Set Goal Modal */}
       <Modal isOpen={goalModal} onClose={() => setGoalModal(false)} title="🎯 Set Career Goal">
-        <form onSubmit={handleSetGoalSubmit} className="space-y-4">
+        <form onSubmit={handleSetGoalSubmit} className="space-y-6">
+          {/* Role Selection */}
           <div>
-            <label className="block text-sm font-medium text-slate-900 mb-2">Your Goal</label>
+            <label className="block text-sm font-medium text-slate-300 mb-3">
+              🎯 What role are you targeting?
+            </label>
+            <div className="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto mb-3">
+              {['Frontend Developer', 'Backend Developer', 'Full Stack Developer', 'Data Scientist', 'Product Manager', 'Tech Lead', 'DevOps Engineer', 'UI/UX Designer', 'QA Engineer', 'Solutions Architect', 'Cloud Architect', 'AI/ML Engineer'].map((role) => (
+                <button
+                  key={role}
+                  type="button"
+                  onClick={() => setGoalForm({ ...goalForm, goal: role })}
+                  className={`p-2 rounded-lg border-2 text-sm font-medium transition-all text-left ${
+                    goalForm.goal === role
+                      ? 'border-cyan-500/50 bg-cyan-600/20 text-cyan-300'
+                      : 'border-slate-700/50 bg-slate-800/30 hover:border-slate-600/50 text-slate-300'
+                  }`}
+                >
+                  {role}
+                </button>
+              ))}
+            </div>
             <Input
-              placeholder="e.g., Learn React Advanced Patterns"
+              placeholder="Or enter your own role..."
               value={goalForm.goal}
               onChange={(e) => setGoalForm({ ...goalForm, goal: e.target.value })}
-              className="border-slate-200"
+              className="border-slate-700/50 bg-slate-800/30 text-slate-100 placeholder:text-slate-500"
             />
           </div>
+
+          {/* Industry Selection */}
           <div>
-            <label className="block text-sm font-medium text-slate-900 mb-2">Category</label>
-            <select 
+            <label className="block text-sm font-medium text-slate-300 mb-3">
+              📈 What industry?
+            </label>
+            <div className="grid grid-cols-2 gap-2">
+              {['Technology', 'Finance', 'Healthcare', 'E-commerce', 'Education', 'Entertainment', 'Manufacturing', 'Logistics', 'Marketing', 'Consulting', 'Energy', 'Real Estate'].map((industry) => (
+                <button
+                  key={industry}
+                  type="button"
+                  onClick={() => setGoalForm({ ...goalForm, category: industry })}
+                  className={`p-2 rounded-lg border-2 text-sm font-medium transition-all ${
+                    goalForm.category === industry
+                      ? 'border-green-500/50 bg-green-600/20 text-green-300'
+                      : 'border-slate-700/50 bg-slate-800/30 hover:border-slate-600/50 text-slate-300'
+                  }`}
+                >
+                  {industry}
+                </button>
+              ))}
+            </div>
+            <Input
+              placeholder="Or enter your own industry..."
               value={goalForm.category}
               onChange={(e) => setGoalForm({ ...goalForm, category: e.target.value })}
-              className="w-full px-3 py-2 border border-slate-200 rounded-lg text-slate-900"
-            >
-              <option value="">Select category</option>
-              <option value="technical">Technical Skills</option>
-              <option value="soft">Soft Skills</option>
-              <option value="career">Career Development</option>
-              <option value="personal">Personal Growth</option>
-            </select>
+              className="border-slate-700/50 bg-slate-800/30 text-slate-100 placeholder:text-slate-500 mt-3"
+            />
           </div>
+
+          {/* Deadline */}
           <div>
-            <label className="block text-sm font-medium text-slate-900 mb-2">Target Deadline</label>
+            <label className="block text-sm font-medium text-slate-300 mb-2">⏰ Target Deadline</label>
             <Input
               type="date"
               value={goalForm.deadline}
               onChange={(e) => setGoalForm({ ...goalForm, deadline: e.target.value })}
-              className="border-slate-200"
+              className="border-slate-700/50 bg-slate-800/30 text-slate-100"
             />
           </div>
-          <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2">
+
+          <Button type="submit" className="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-medium py-2">
             <Target className="w-4 h-4 mr-2" />
             Set Goal
           </Button>
@@ -1494,20 +1541,20 @@ export default function InteractiveDashboard() {
       <Modal isOpen={mentorModal} onClose={() => setMentorModal(false)} title="👥 Find a Mentor">
         <form onSubmit={handleFindMentorSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-slate-900 mb-2">Field of Interest</label>
+            <label className="block text-sm font-medium text-slate-300 mb-2">Field of Interest</label>
             <Input
               placeholder="e.g., Product Management, Full Stack Development"
               value={mentorForm.field}
               onChange={(e) => setMentorForm({ ...mentorForm, field: e.target.value })}
-              className="border-slate-200"
+              className="border-slate-700/50 bg-slate-800/30 text-slate-100 placeholder:text-slate-500"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-900 mb-2">Preferred Experience Level</label>
+            <label className="block text-sm font-medium text-slate-300 mb-2">Preferred Experience Level</label>
             <select 
               value={mentorForm.experience}
               onChange={(e) => setMentorForm({ ...mentorForm, experience: e.target.value })}
-              className="w-full px-3 py-2 border border-slate-200 rounded-lg text-slate-900"
+              className="w-full px-3 py-2 border border-slate-700/50 rounded-lg text-slate-100 bg-slate-800/30"
             >
               <option value="">Select level</option>
               <option value="1-3">1-3 years</option>
@@ -1516,11 +1563,11 @@ export default function InteractiveDashboard() {
               <option value="10+">10+ years</option>
             </select>
           </div>
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 flex gap-2">
-            <AlertCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-            <p className="text-sm text-blue-900">We'll match you with available mentors in your field</p>
+          <div className="bg-cyan-600/20 border border-cyan-500/50 rounded-lg p-3 flex gap-2">
+            <AlertCircle className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
+            <p className="text-sm text-cyan-300">We'll match you with available mentors in your field</p>
           </div>
-          <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2">
+          <Button type="submit" className="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-medium py-2">
             <UserCheck className="w-4 h-4 mr-2" />
             Find Mentor
           </Button>
@@ -1531,18 +1578,18 @@ export default function InteractiveDashboard() {
       <Modal isOpen={discoverModal} onClose={() => setDiscoverModal(false)} title="🔍 Discover Pods">
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-slate-900 mb-2">Search Pods</label>
+            <label className="block text-sm font-medium text-slate-300 mb-2">Search Pods</label>
             <div className="flex gap-2">
               <Input
                 placeholder="Search by pod name or topic..."
                 value={discoverSearchQuery}
                 onChange={(e) => setDiscoverSearchQuery(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSearchPods()}
-                className="border-slate-200 flex-1"
+                className="border-slate-700/50 bg-slate-800/30 text-slate-100 placeholder:text-slate-500 flex-1"
               />
               <Button 
                 onClick={() => handleSearchPods()}
-                className="bg-blue-600 hover:bg-blue-700"
+                className="bg-cyan-600 hover:bg-cyan-700"
               >
                 <Search className="w-4 h-4" />
               </Button>
@@ -1550,33 +1597,33 @@ export default function InteractiveDashboard() {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold text-slate-900 mb-3">Available Pods</h3>
+            <h3 className="text-lg font-semibold text-slate-100 mb-3">Available Pods</h3>
             
             {discoverLoading ? (
               <div className="text-center py-8">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-2"></div>
-                <p className="text-sm text-slate-600">Searching pods...</p>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-400 mx-auto mb-2"></div>
+                <p className="text-sm text-slate-400">Searching pods...</p>
               </div>
             ) : discoveredPods.length === 0 ? (
-              <div className="text-center py-8 bg-slate-50 rounded-lg">
-                <Search className="w-12 h-12 text-slate-300 mx-auto mb-2" />
-                <p className="text-slate-600">
+              <div className="text-center py-8 bg-slate-800/30 rounded-lg border border-slate-700/50">
+                <Search className="w-12 h-12 text-slate-500 mx-auto mb-2" />
+                <p className="text-slate-400">
                   {discoverSearchQuery ? 'No pods found. Try different keywords!' : 'Enter a search term to discover pods'}
                 </p>
               </div>
             ) : (
               <div className="space-y-3 max-h-[400px] overflow-y-auto">
                 {discoveredPods.map((pod: any) => (
-                  <div key={pod.id} className="border border-slate-200 rounded-lg p-4 hover:border-blue-400 hover:shadow-md transition-all">
+                  <div key={pod.id} className="border border-slate-700/50 rounded-lg p-4 hover:border-cyan-500/50 hover:bg-slate-800/50 transition-all bg-slate-800/30">
                     <div className="flex justify-between items-start mb-2">
                       <div className="flex-1">
-                        <h4 className="font-semibold text-slate-900">{pod.name}</h4>
-                        <p className="text-sm text-slate-600 mt-1">{pod.description}</p>
+                        <h4 className="font-semibold text-slate-100">{pod.name}</h4>
+                        <p className="text-sm text-slate-400 mt-1">{pod.description}</p>
                       </div>
                     </div>
                     
-                    <div className="flex items-center justify-between pt-3 border-t border-slate-100">
-                      <div className="flex items-center gap-2 text-xs text-slate-500">
+                    <div className="flex items-center justify-between pt-3 border-t border-slate-700/50">
+                      <div className="flex items-center gap-2 text-xs text-slate-400">
                         <Users className="w-4 h-4" />
                         <span>{pod.memberships?.length || 0} members</span>
                       </div>
@@ -1602,8 +1649,8 @@ export default function InteractiveDashboard() {
         <div className="space-y-4">
           {selectedMeeting?.joinUrl ? (
             <div>
-              <p className="text-sm text-slate-600 mb-4">Connecting to the video call...</p>
-              <div className="bg-slate-100 rounded-lg overflow-hidden aspect-video flex items-center justify-center">
+              <p className="text-sm text-slate-400 mb-4">Connecting to the video call...</p>
+              <div className="bg-slate-800/30 rounded-lg overflow-hidden aspect-video flex items-center justify-center border border-slate-700/50">
                 <iframe
                   src={selectedMeeting.joinUrl}
                   title="Daily.co Video Call"
@@ -1611,8 +1658,8 @@ export default function InteractiveDashboard() {
                   style={{ width: '100%', height: '100%', border: 'none' }}
                 />
               </div>
-              <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                <p className="text-sm text-blue-900">
+              <div className="mt-4 p-3 bg-cyan-600/20 border border-cyan-500/50 rounded-lg">
+                <p className="text-sm text-cyan-300">
                   💡 <strong>Tip:</strong> Allow camera and microphone permissions to participate in the call.
                 </p>
               </div>

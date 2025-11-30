@@ -86,19 +86,19 @@ export default function ProgressCard({
   };
 
   return (
-    <Card className={`border transition-all ${isCompleted ? 'border-green-200 bg-green-50' : 'border-slate-200'}`}>
+    <Card className={`border transition-all ${isCompleted ? 'border-green-500/50 bg-green-600/10' : 'border-slate-700/50'}`}>
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="flex-1">
             <div className="flex items-center gap-2">
-              <CardTitle className="text-base">{skillName}</CardTitle>
+              <CardTitle className="text-base text-slate-100">{skillName}</CardTitle>
               {isCompleted && (
                 <div title="Skill mastered!">
-                  <Award className="w-5 h-5 text-green-600" />
+                  <Award className="w-5 h-5 text-green-400" />
                 </div>
               )}
             </div>
-            <CardDescription>
+            <CardDescription className="text-slate-400">
               Level {editLevel}/{editTarget} - {getLevelLabel(editLevel)}
             </CardDescription>
           </div>
@@ -106,7 +106,7 @@ export default function ProgressCard({
             variant="ghost"
             size="sm"
             onClick={() => setIsEditing(!isEditing)}
-            className="text-slate-600 hover:text-slate-900"
+            className="text-slate-400 hover:text-slate-300 hover:bg-slate-800/30"
           >
             {isEditing ? '✕' : '✎'}
           </Button>
@@ -117,10 +117,10 @@ export default function ProgressCard({
         {/* Progress Bar */}
         <div className="space-y-2">
           <div className="flex items-center justify-between text-sm">
-            <span className="text-slate-600">Progress</span>
-            <span className="font-semibold text-slate-900">{Math.round(progressPercentage)}%</span>
+            <span className="text-slate-400">Progress</span>
+            <span className="font-semibold text-slate-200">{Math.round(progressPercentage)}%</span>
           </div>
-          <div className="w-full bg-slate-100 rounded-full h-3 overflow-hidden">
+          <div className="w-full bg-slate-800/30 rounded-full h-3 overflow-hidden border border-slate-700/50">
             <div
               className={`h-3 rounded-full bg-gradient-to-r ${getLevelColor(editLevel)} transition-all duration-300`}
               style={{ width: `${progressPercentage}%` }}
@@ -131,12 +131,12 @@ export default function ProgressCard({
         {!isEditing ? (
           <>
             {notes && (
-              <div className="p-3 bg-slate-50 rounded-lg border border-slate-200">
-                <p className="text-sm text-slate-700">{notes}</p>
+              <div className="p-3 bg-slate-800/30 rounded-lg border border-slate-700/50">
+                <p className="text-sm text-slate-300">{notes}</p>
               </div>
             )}
             {achievedAt && (
-              <div className="flex items-center gap-2 text-xs text-green-600 bg-green-50 p-2 rounded">
+              <div className="flex items-center gap-2 text-xs text-green-400 bg-green-600/20 p-2 rounded border border-green-500/50">
                 <CheckCircle2 className="w-4 h-4" />
                 <span>Completed on {new Date(achievedAt).toLocaleDateString()}</span>
               </div>
@@ -145,9 +145,9 @@ export default function ProgressCard({
         ) : (
           <>
             {/* Level Control */}
-            <div className="space-y-3 p-3 bg-slate-50 rounded-lg border border-slate-200">
+            <div className="space-y-3 p-3 bg-slate-800/30 rounded-lg border border-slate-700/50">
               <div>
-                <label className="block text-sm font-medium text-slate-900 mb-2">
+                <label className="block text-sm font-medium text-slate-300 mb-2">
                   Current Level: {editLevel}
                 </label>
                 <div className="flex items-center gap-2">
@@ -156,11 +156,11 @@ export default function ProgressCard({
                     variant="outline"
                     onClick={decrementLevel}
                     disabled={editLevel <= 1}
-                    className="flex-1"
+                    className="flex-1 border-slate-700/50 text-slate-400 hover:bg-slate-700/30"
                   >
                     <ChevronDown className="w-4 h-4" />
                   </Button>
-                  <div className="flex-1 text-center py-2 bg-white border border-slate-200 rounded font-semibold text-slate-900">
+                  <div className="flex-1 text-center py-2 bg-slate-800/30 border border-slate-700/50 rounded font-semibold text-slate-200">
                     {editLevel}
                   </div>
                   <Button
@@ -168,7 +168,7 @@ export default function ProgressCard({
                     variant="outline"
                     onClick={incrementLevel}
                     disabled={editLevel >= editTarget}
-                    className="flex-1"
+                    className="flex-1 border-slate-700/50 text-slate-400 hover:bg-slate-700/30"
                   >
                     <ChevronUp className="w-4 h-4" />
                   </Button>
@@ -176,7 +176,7 @@ export default function ProgressCard({
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-900 mb-2">
+                <label className="block text-sm font-medium text-slate-300 mb-2">
                   Target Level
                 </label>
                 <Input
@@ -185,19 +185,19 @@ export default function ProgressCard({
                   max="5"
                   value={editTarget}
                   onChange={(e) => setEditTarget(parseInt(e.target.value) || 5)}
-                  className="border-slate-200"
+                  className="border-slate-700/50 bg-slate-800/30 text-slate-100"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-900 mb-2">
+                <label className="block text-sm font-medium text-slate-300 mb-2">
                   Notes
                 </label>
                 <Textarea
                   placeholder="Add notes about your progress..."
                   value={editNotes}
                   onChange={(e) => setEditNotes(e.target.value)}
-                  className="border-slate-200 min-h-[60px] text-sm"
+                  className="border-slate-700/50 bg-slate-800/30 text-slate-100 placeholder:text-slate-500 min-h-[60px] text-sm"
                 />
               </div>
             </div>
@@ -208,7 +208,7 @@ export default function ProgressCard({
                 size="sm"
                 onClick={handleSave}
                 disabled={isLoading}
-                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
+                className="flex-1 bg-cyan-600 hover:bg-cyan-700 text-white"
               >
                 {isLoading ? 'Saving...' : 'Save Changes'}
               </Button>
@@ -217,6 +217,7 @@ export default function ProgressCard({
                 variant="destructive"
                 onClick={handleDelete}
                 disabled={isLoading}
+                className="bg-red-600 hover:bg-red-700 text-white"
               >
                 <Trash2 className="w-4 h-4" />
               </Button>

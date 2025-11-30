@@ -169,11 +169,11 @@ const SkillsGoalsStep: React.FC<SkillsGoalsStepProps> = ({ data, onUpdate }) => 
           {currentSkills.length > 0 ? (
             <div className="grid gap-3">
               {currentSkills.map((skill) => (
-                <div key={skill.skillId} className="flex items-center justify-between p-3 border rounded-lg">
+                <div key={skill.skillId} className="flex items-center justify-between p-3 border border-slate-700/50 rounded-lg bg-slate-800/30">
                   <div className="flex items-center space-x-3">
                     <div>
-                      <p className="font-medium">{getSkillName(skill.skillId)}</p>
-                      <p className="text-sm text-gray-500">{getSkillCategory(skill.skillId)}</p>
+                      <p className="font-medium text-slate-100">{getSkillName(skill.skillId)}</p>
+                      <p className="text-sm text-slate-400">{getSkillCategory(skill.skillId)}</p>
                     </div>
                   </div>
                   
@@ -182,7 +182,7 @@ const SkillsGoalsStep: React.FC<SkillsGoalsStepProps> = ({ data, onUpdate }) => 
                       value={skill.level.toString()}
                       onValueChange={(value) => updateCurrentSkillLevel(skill.skillId, parseInt(value))}
                     >
-                      <SelectTrigger className="w-32">
+                      <SelectTrigger className="w-32 border-slate-700/50 bg-slate-800/30 text-slate-100">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -202,7 +202,7 @@ const SkillsGoalsStep: React.FC<SkillsGoalsStepProps> = ({ data, onUpdate }) => 
                       variant="outline"
                       size="sm"
                       onClick={() => removeCurrentSkill(skill.skillId)}
-                      className="text-red-600 hover:text-red-700"
+                      className="text-red-600 hover:text-red-700 border-slate-700/50"
                     >
                       <Trash2 className="w-4 h-4" />
                     </Button>
@@ -211,13 +211,13 @@ const SkillsGoalsStep: React.FC<SkillsGoalsStepProps> = ({ data, onUpdate }) => 
               ))}
             </div>
           ) : (
-            <p className="text-gray-500 text-center py-4">
+            <p className="text-slate-400 text-center py-4">
               No skills added yet
             </p>
           )}
 
           {/* Add Current Skill */}
-          <div className="border-t pt-4">
+          <div className="border-t border-slate-700/50 pt-4">
             <Label className="text-sm font-medium">Add Current Skill:</Label>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mt-2">
               <Select onValueChange={(skillId) => addCurrentSkill(skillId, 1)}>
@@ -249,11 +249,11 @@ const SkillsGoalsStep: React.FC<SkillsGoalsStepProps> = ({ data, onUpdate }) => 
           {targetSkills.length > 0 ? (
             <div className="grid gap-3">
               {targetSkills.map((skill) => (
-                <div key={skill.skillId} className="flex items-center justify-between p-3 border rounded-lg">
+                <div key={skill.skillId} className="flex items-center justify-between p-3 border border-slate-700/50 rounded-lg bg-slate-800/30">
                   <div className="flex items-center space-x-3">
                     <div>
-                      <p className="font-medium">{getSkillName(skill.skillId)}</p>
-                      <p className="text-sm text-gray-500">{getSkillCategory(skill.skillId)}</p>
+                      <p className="font-medium text-slate-100">{getSkillName(skill.skillId)}</p>
+                      <p className="text-sm text-slate-400">{getSkillCategory(skill.skillId)}</p>
                     </div>
                   </div>
                   
@@ -262,7 +262,7 @@ const SkillsGoalsStep: React.FC<SkillsGoalsStepProps> = ({ data, onUpdate }) => 
                       value={skill.targetLevel.toString()}
                       onValueChange={(value) => updateTargetSkillLevel(skill.skillId, parseInt(value))}
                     >
-                      <SelectTrigger className="w-32">
+                      <SelectTrigger className="w-32 border-slate-700/50 bg-slate-800/30 text-slate-100">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -282,7 +282,7 @@ const SkillsGoalsStep: React.FC<SkillsGoalsStepProps> = ({ data, onUpdate }) => 
                       variant="outline"
                       size="sm"
                       onClick={() => removeTargetSkill(skill.skillId)}
-                      className="text-red-600 hover:text-red-700"
+                      className="text-red-600 hover:text-red-700 border-slate-700/50"
                     >
                       <Trash2 className="w-4 h-4" />
                     </Button>
@@ -291,13 +291,13 @@ const SkillsGoalsStep: React.FC<SkillsGoalsStepProps> = ({ data, onUpdate }) => 
               ))}
             </div>
           ) : (
-            <p className="text-gray-500 text-center py-4">
+            <p className="text-slate-400 text-center py-4">
               No target skills added yet
             </p>
           )}
 
           {/* Add Target Skill */}
-          <div className="border-t pt-4">
+          <div className="border-t border-slate-700/50 pt-4">
             <Label className="text-sm font-medium">Add Target Skill:</Label>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mt-2">
               <Select onValueChange={(skillId) => addTargetSkill(skillId, 3)}>
@@ -319,9 +319,9 @@ const SkillsGoalsStep: React.FC<SkillsGoalsStepProps> = ({ data, onUpdate }) => 
 
       {/* Quick Add Templates */}
       <div className="space-y-3">
-        <Label className="text-sm font-medium">Quick Add - Popular Skills:</Label>
+        <Label className="text-sm font-medium text-slate-300">Quick Add - Popular Skills:</Label>
         <div className="space-y-2">
-          <p className="text-xs text-gray-600">Technical Skills:</p>
+          <p className="text-xs text-slate-400">Technical Skills:</p>
           <div className="flex flex-wrap gap-2">
             {["programming", "data-analysis", "web-development", "communication", "leadership"].map((skillId) => (
               <Button

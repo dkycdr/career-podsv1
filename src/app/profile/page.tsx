@@ -139,24 +139,34 @@ function ProfileContent() {
 
     setLoading(true);
     try {
+      const requestBody = {
+        userId: form.id,
+        name: form.name,
+        studentId: form.studentId,
+        major: form.major,
+        year: form.year,
+        bio: form.bio,
+        avatarData: form.avatar
+      };
+      
+      console.log('📤 Sending update request:', {
+        ...requestBody,
+        avatarData: form.avatar ? `${form.avatar.substring(0, 50)}...` : null
+      });
+
       const res = await fetch('/api/auth/user/update', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          userId: form.id,
-          name: form.name,
-          studentId: form.studentId,
-          major: form.major,
-          year: form.year,
-          bio: form.bio,
-          avatarData: form.avatar
-        })
+        body: JSON.stringify(requestBody)
       });
 
       const data = await res.json();
+      console.log('📥 Response status:', res.status);
+      console.log('📥 Response data:', data);
+      
       if (!res.ok) {
         console.error('❌ Update failed:', data);
-        throw new Error(data.error || data.details || 'Update failed');
+        throw new Error(data.error || data.details || `Server error: ${res.status}`);
       }
       
       console.log('✅ Profile updated successfully');

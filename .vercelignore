@@ -1,0 +1,20 @@
+# Documentation files
+*.md
+README.md
+
+# Test files
+test/
+tests/
+
+# Development only
+.git
+.gitignore
+*.log
+npm-debug.log*
+
+# Build artifacts
+.next/
+.turbo/
+
+# Dependencies already installed on Vercel
+node_modules/

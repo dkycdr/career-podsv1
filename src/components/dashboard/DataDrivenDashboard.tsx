@@ -659,11 +659,9 @@ export default function InteractiveDashboard() {
           <div className="flex justify-between items-center py-5">
             {/* Left: Logo & Title */}
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 gradient-brand rounded-xl flex items-center justify-center glow-sm">
-                <Users className="w-6 h-6 text-white" />
-              </div>
+              <img src="/logo.png" alt="Career Pods" className="w-10 h-10 rounded-xl" />
               <div className="flex flex-col">
-                <h1 className="text-2xl font-bold gradient-text">Career Explorer</h1>
+                <h1 className="text-2xl font-bold gradient-text">Career Pods</h1>
                 <p className="text-xs text-slate-400">Grow together in pods</p>
               </div>
             </div>

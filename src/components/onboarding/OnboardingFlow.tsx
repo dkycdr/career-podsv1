@@ -230,11 +230,9 @@ const OnboardingFlow = () => {
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center space-x-2 mb-4">
-            <div className="w-10 h-10 gradient-brand rounded-lg flex items-center justify-center glow-sm">
-              <User className="w-6 h-6 text-white" />
-            </div>
+            <img src="/logo.png" alt="Career Pods" className="w-10 h-10 rounded-lg" />
             <h1 className="text-3xl font-bold text-slate-100">
-              Career Explorer Pods - Onboarding
+              Career Pods - Onboarding
             </h1>
           </div>
           <p className="text-slate-400">

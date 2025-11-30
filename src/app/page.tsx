@@ -212,7 +212,7 @@ export default function Home() {
             <div>
               <h4 className="font-semibold mb-4 text-cyan-300">Contact</h4>
               <ul className="space-y-2 text-slate-400 text-sm">
-                <li>contact@presuniv-pods.edu</li>
+                <li>dwiky.candra@student.president.ac.id</li>
                 <li>President University</li>
                 <li>Jababeka, Cikarang</li>
               </ul>
@@ -220,7 +220,7 @@ export default function Home() {
           </div>
           
           <div className="border-t border-slate-800 pt-8 text-center text-slate-500 text-sm">
-            <p>&copy; 2024 Career Pods - President University. All rights reserved.</p>
+            <p>&copy; 2025 Career Pods - President University. All rights reserved.</p>
           </div>
         </div>
       </footer>

@@ -27,12 +27,17 @@ export default function PodChat({ podId, userId, userName, userRole, podName }: 
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [isSending, setIsSending] = useState(false);
+  const [finalUserName, setFinalUserName] = useState<string>(userName || 'User');
   const messagesContainerRef = useRef<HTMLDivElement>(null);
 
-  // Debug podName
+  // Debug podName and ensure userName is loaded
   useEffect(() => {
     console.log('PodChat podName prop:', podName);
-  }, [podName]);
+    const storedName = localStorage.getItem('userName');
+    if (storedName) {
+      setFinalUserName(storedName);
+    }
+  }, [podName, userName]);
 
   const scrollToBottom = () => {
     if (messagesContainerRef.current) {
@@ -83,7 +88,7 @@ export default function PodChat({ podId, userId, userName, userRole, podName }: 
         body: JSON.stringify({
           podId,
           userId,
-          userName,
+          userName: finalUserName,
           message: input,
           role: userRole,
         }),

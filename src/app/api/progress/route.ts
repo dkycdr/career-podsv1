@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
+import { prisma } from '@/lib/prisma';
 
 export async function GET(request: NextRequest) {
   try {
@@ -14,13 +14,13 @@ export async function GET(request: NextRequest) {
     }
 
     // Get user's progress
-    const progress = await db.progress.findMany({
+    const progress = await prisma.progress.findMany({
       where: { userId },
       orderBy: { createdAt: 'desc' }
     });
 
     // Get user's skills
-    const skills = await db.userSkill.findMany({
+    const skills = await prisma.userSkill.findMany({
       where: { userId },
       include: {
         skill: true
@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
     });
 
     // Get user's career interests (goals)
-    const careerInterests = await db.careerInterest.findMany({
+    const careerInterests = await prisma.careerInterest.findMany({
       where: { userId }
     });
 
@@ -53,7 +53,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { userId, goal, category, deadline } = body;
+    const { userId, goal, category, deadline, priority } = body;
 
     if (!userId || !goal) {
       return NextResponse.json({
@@ -63,14 +63,14 @@ export async function POST(request: NextRequest) {
     }
 
     // Create a career interest (goal)
-    // Using actual schema fields: industry, role, description
-    const careerInterest = await db.careerInterest.create({
+    // Using actual schema fields: industry, role, description, priority
+    const careerInterest = await prisma.careerInterest.create({
       data: {
         userId,
         industry: category || 'General',
         role: goal,  // Use role field to store goal text
         description: `Goal set on ${new Date().toLocaleDateString()}`,
-        priority: 'MEDIUM'
+        priority: priority || 'MEDIUM'
       }
     });
 

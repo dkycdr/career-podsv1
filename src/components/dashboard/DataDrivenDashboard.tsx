@@ -17,14 +17,14 @@ import Link from 'next/link';
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import ProgressDashboard from "@/components/progress/ProgressDashboard";
+import NotificationPanel from "@/components/NotificationPanel";
+import PodSettingsModal from "@/components/modals/PodSettingsModal";
 import { 
   Users, Calendar, Target, Award, Bell, LogOut, Video, 
   Plus, Search, TrendingUp, Clock, CheckCircle, Star, 
   UserCheck, Settings, Menu, X, MessageSquare, Building2,
   ChevronRight, Sparkles, Zap, AlertCircle
 } from "lucide-react";
-
-const SearchUsers = dynamic(() => import('@/components/search/SearchUsers'), { ssr: false });
 
 // Add global styles for animations
 const animationStyles = `
@@ -208,7 +208,8 @@ export default function InteractiveDashboard() {
   const [materialsModal, setMaterialsModal] = useState(false);
   const [selectedPodForMaterials, setSelectedPodForMaterials] = useState<string | null>(null);
   const [discoverModal, setDiscoverModal] = useState(false);
-  const [searchModal, setSearchModal] = useState(false);
+  const [podSettingsModal, setPodSettingsModal] = useState(false);
+  const [selectedPodForSettings, setSelectedPodForSettings] = useState<any>(null);
   const [memberModal, setMemberModal] = useState(false);
   const [selectedPodMembers, setSelectedPodMembers] = useState<any[]>([]);
   const [videoCallModal, setVideoCallModal] = useState(false);
@@ -226,7 +227,7 @@ export default function InteractiveDashboard() {
   // Form states
   const [podForm, setPodForm] = useState({ name: '', description: '' });
   const [meetingForm, setMeetingForm] = useState({ title: '', date: '', time: '', maxAttendees: 5 });
-  const [goalForm, setGoalForm] = useState({ goal: '', deadline: '', category: '' });
+  const [goalForm, setGoalForm] = useState({ goal: '', deadline: '', category: '', priority: 'MEDIUM' });
   const [mentorForm, setMentorForm] = useState({ field: '', experience: '' });
   const [materialForm, setMaterialForm] = useState({ title: '', description: '', type: 'note', content: '', url: '' });
   
@@ -414,13 +415,14 @@ export default function InteractiveDashboard() {
           goal: goalForm.goal,
           category: goalForm.category,
           deadline: goalForm.deadline,
+          priority: goalForm.priority,
           userId: userId
         })
       });
       
       const data = await response.json();
       if (data.success) {
-        setGoalForm({ goal: '', deadline: '', category: '' });
+        setGoalForm({ goal: '', deadline: '', category: '', priority: 'MEDIUM' });
         setGoalModal(false);
         // Refresh goals
         const res = await fetch(`/api/progress?userId=${userId}`);
@@ -659,20 +661,19 @@ export default function InteractiveDashboard() {
           <div className="flex justify-between items-center py-5">
             {/* Left: Logo & Title */}
             <div className="flex items-center space-x-3">
-              <img src="/logo.png" alt="Career Pods" className="w-10 h-10 rounded-xl" />
+              <div className="w-10 h-10 gradient-brand rounded-xl flex items-center justify-center glow-sm">
+                <Users className="w-6 h-6 text-white" />
+              </div>
               <div className="flex flex-col">
-                <h1 className="text-2xl font-bold gradient-text">Career Pods</h1>
+                <h1 className="text-2xl font-bold gradient-text">Career Explorer</h1>
                 <p className="text-xs text-slate-400">Grow together in pods</p>
               </div>
             </div>
 
             {/* Right: User & Actions */}
             <div className="flex items-center space-x-5">
-              <Button variant="ghost" size="icon" className="relative hover:bg-slate-800/50">
-                <Bell className="w-5 h-5 text-slate-400" />
-                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full"></span>
-              </Button>
-              <Button variant="ghost" size="icon" onClick={() => setSearchModal(true)} className="hover:bg-slate-800/50">
+              <NotificationPanel userId={userId} />
+              <Button variant="ghost" size="icon" onClick={() => window.location.href = '/find-people'} className="hover:bg-slate-800/50">
                 <Search className="w-5 h-5 text-slate-400" />
               </Button>
               
@@ -718,7 +719,7 @@ export default function InteractiveDashboard() {
               { id: 'overview', name: 'Overview', icon: Target },
               { id: 'pods', name: 'My Pods', icon: Users },
               { id: 'meetings', name: 'Meetings', icon: Calendar },
-              { id: 'progress', name: 'Progress', icon: TrendingUp }
+              { id: 'progress', name: 'Progress', icon: TrendingUp },
             ].map((tab) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
@@ -740,15 +741,6 @@ export default function InteractiveDashboard() {
           </nav>
         </div>
       </div>
-      {/* Search Users Modal */}
-      <Modal isOpen={searchModal} onClose={() => setSearchModal(false)} title="Search People">
-        <div>
-          {/* Client component for searching users */}
-          {/* We import client component directly here (this file is client) */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <SearchUsers viewerId={userId} onVisit={(id: string) => { setSearchModal(false); window.location.href = `/user/${id}`; }} />
-        </div>
-      </Modal>
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-20">
@@ -1024,7 +1016,15 @@ export default function InteractiveDashboard() {
                           <Users className="w-4 h-4 mr-1" />
                           Members
                         </Button>
-                        <Button size="sm" variant="outline" className="border-slate-700/50 text-slate-300 hover:bg-slate-800">
+                        <Button 
+                          size="sm" 
+                          variant="outline" 
+                          onClick={() => {
+                            setSelectedPodForSettings(pod);
+                            setPodSettingsModal(true);
+                          }}
+                          className="border-slate-700/50 text-slate-300 hover:bg-slate-800"
+                        >
                           <Settings className="w-4 h-4" />
                         </Button>
                       </div>
@@ -1081,6 +1081,7 @@ export default function InteractiveDashboard() {
             )}
           </div>
         )}
+
         {/* Meetings Tab */}
         {activeTab === 'meetings' && (
           <div className="space-y-6">
@@ -1528,6 +1529,31 @@ export default function InteractiveDashboard() {
             />
           </div>
 
+          {/* Priority */}
+          <div>
+            <label className="block text-sm font-medium text-slate-300 mb-3">Priority</label>
+            <div className="flex gap-3">
+              {[
+                { value: 'LOW', label: '🟢 Low', color: 'border-green-500/50 bg-green-600/20 text-green-300' },
+                { value: 'MEDIUM', label: '🟡 Medium', color: 'border-yellow-500/50 bg-yellow-600/20 text-yellow-300' },
+                { value: 'HIGH', label: '🔴 High', color: 'border-red-500/50 bg-red-600/20 text-red-300' }
+              ].map(({ value, label, color }) => (
+                <button
+                  key={value}
+                  type="button"
+                  onClick={() => setGoalForm({ ...goalForm, priority: value })}
+                  className={`flex-1 p-3 rounded-lg border-2 font-medium transition-all ${
+                    goalForm.priority === value
+                      ? `${color} border-solid`
+                      : 'border-slate-700/50 bg-slate-800/30 hover:border-slate-600/50 text-slate-300'
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+
           <Button type="submit" className="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-medium py-2">
             <Target className="w-4 h-4 mr-2" />
             Set Goal
@@ -1678,6 +1704,22 @@ export default function InteractiveDashboard() {
           )}
         </div>
       </Modal>
+
+      {/* Pod Settings Modal */}
+      <PodSettingsModal
+        isOpen={podSettingsModal}
+        onClose={() => {
+          setPodSettingsModal(false);
+          setSelectedPodForSettings(null);
+        }}
+        pod={selectedPodForSettings}
+        userId={userId}
+        onSave={() => {
+          setPodSettingsModal(false);
+          setSelectedPodForSettings(null);
+          refetchPods();
+        }}
+      />
     </div>
   );
 }

@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { TrendingUp, Award, Target, Zap, Clock, CheckCircle2, Star, Plus } from 'lucide-react';
+import { TrendingUp, Award, Target, Zap, Clock, CheckCircle2, Star, Plus, Trash2, Edit2 } from 'lucide-react';
 import ProgressCard from './ProgressCard';
 import AddSkillModal from './AddSkillModal';
 import CareerGoalModal from './CareerGoalModal';
@@ -30,6 +30,7 @@ export default function ProgressDashboard({
   const [isAddingSkill, setIsAddingSkill] = useState(false);
   const [newSkillName, setNewSkillName] = useState('');
   const [achievements, setAchievements] = useState<any[]>([]);
+  const [localCareerInterests, setLocalCareerInterests] = useState(careerInterests);
   const [stats, setStats] = useState({
     completedSkills: 0,
     averageLevel: 0,
@@ -38,6 +39,32 @@ export default function ProgressDashboard({
   });
   const [showAddSkillModal, setShowAddSkillModal] = useState(false);
   const [showCareerGoalModal, setShowCareerGoalModal] = useState(false);
+
+  // Handle delete career goal
+  const handleDeleteCareerGoal = async (goalId: string) => {
+    if (!confirm('Are you sure you want to delete this career goal?')) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/career-goals/${goalId}`, {
+        method: 'DELETE',
+        headers: { 'x-user-id': userId }
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setLocalCareerInterests(localCareerInterests.filter((g: any) => g.id !== goalId));
+        alert('✅ Career goal deleted');
+        onRefresh?.();
+      } else {
+        alert(`❌ Error: ${data.error}`);
+      }
+    } catch (error) {
+      console.error('Error deleting goal:', error);
+      alert('❌ Error deleting career goal');
+    }
+  };
 
   // Calculate stats
   useEffect(() => {
@@ -342,24 +369,34 @@ export default function ProgressDashboard({
             </h3>
             <p className="text-sm text-slate-400 mt-1">Explore your career path</p>
           </div>
-          {careerInterests.length > 0 && (
-            <span className="text-2xl font-bold text-cyan-400">{careerInterests.length}</span>
+          {localCareerInterests.length > 0 && (
+            <span className="text-2xl font-bold text-cyan-400">{localCareerInterests.length}</span>
           )}
         </div>
 
-        {careerInterests.length > 0 ? (
+        {localCareerInterests.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {careerInterests.map((interest: any) => (
+            {localCareerInterests.map((interest: any) => (
               <div key={interest.id} className="flex flex-col items-start p-4 rounded-lg glass-alt border border-slate-700/50 bg-slate-800/30 hover:shadow-md transition-all">
                 <div className="w-full">
                   <div className="flex items-start justify-between mb-2">
-                    <div>
+                    <div className="flex-1">
                       <h4 className="font-semibold text-slate-100">{interest.role}</h4>
                       <p className="text-sm text-slate-400 mt-0.5">{interest.industry}</p>
                     </div>
-                    <Badge className={interest.priority === 'HIGH' ? 'bg-red-600/30 text-red-400' : interest.priority === 'MEDIUM' ? 'bg-yellow-600/30 text-yellow-400' : 'bg-green-600/30 text-green-400'}>
-                      {interest.priority}
-                    </Badge>
+                    <div className="flex items-center gap-2 ml-2">
+                      <Badge className={interest.priority === 'HIGH' ? 'bg-red-600/30 text-red-400' : interest.priority === 'MEDIUM' ? 'bg-yellow-600/30 text-yellow-400' : 'bg-green-600/30 text-green-400'}>
+                        {interest.priority}
+                      </Badge>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => handleDeleteCareerGoal(interest.id)}
+                        className="text-red-400 hover:text-red-300 hover:bg-red-600/20 h-8 w-8 p-0"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                    </div>
                   </div>
                   {interest.description && (
                     <p className="text-sm text-slate-300 mt-2">{interest.description}</p>
@@ -406,7 +443,21 @@ export default function ProgressDashboard({
         onClose={() => setShowCareerGoalModal(false)}
         userId={userId}
         onGoalAdded={() => {
+          // Refresh data from parent
           onRefresh?.();
+          // Also refresh local career interests
+          const fetchUpdated = async () => {
+            try {
+              const res = await fetch(`/api/progress?userId=${userId}`);
+              const data = await res.json();
+              if (data.success) {
+                setLocalCareerInterests(data.careerInterests || []);
+              }
+            } catch (error) {
+              console.error('Error refreshing career interests:', error);
+            }
+          };
+          fetchUpdated();
         }}
       />
     </div>

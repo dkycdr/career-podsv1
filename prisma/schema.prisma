@@ -39,6 +39,7 @@ model User {
   skills         UserSkill[]
   podMaterials   PodMaterial[]
   podMessages    PodMessage[] @relation("podMessages")
+  notifications  Notification[]
 
   @@map("users")
 }
@@ -232,7 +233,34 @@ model PodMessage {
   @@map("pod_messages")
 }
 
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  type      NotificationType
+  podId     String?
+  meetingId String?
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relationships
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, read])
+  @@map("notifications")
+}
+
 // Enums
+enum NotificationType {
+  POD_CREATED
+  POD_UPDATED
+  NEW_MEETING
+  MEETING_UPDATED
+  NEW_MESSAGE
+  MEMBER_JOINED
+}
+
 enum UserRole {
   STUDENT
   MENTOR

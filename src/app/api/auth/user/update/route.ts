@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
+import { prisma } from '@/lib/prisma';
 import fs from 'fs/promises';
 import path from 'path';
 
@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'userId is required' }, { status: 400 });
     }
 
-    const user = await db.user.findUnique({ where: { id: userId } });
+    const user = await prisma.user.findUnique({ where: { id: userId } });
     if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    const updated = await db.user.update({
+    const updated = await prisma.user.update({
       where: { id: userId },
       data: {
         name: name ?? user.name,

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
+import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 
 export async function POST(request: NextRequest) {
@@ -17,9 +17,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Normalize email
+    const normalizedEmail = personalInfo.email.toLowerCase().trim();
+    if (!normalizedEmail.includes('@')) {
+      return NextResponse.json(
+        { error: 'Invalid email format' },
+        { status: 400 }
+      );
+    }
+
     // Check if user already exists
-    const existingUser = await db.user.findUnique({
-      where: { email: personalInfo.email }
+    const existingUser = await prisma.user.findUnique({
+      where: { email: normalizedEmail }
     });
 
     if (existingUser) {
@@ -38,7 +47,7 @@ export async function POST(request: NextRequest) {
     const hashedPassword = await bcrypt.hash(personalInfo.password, 12);
 
     // Create user ONLY - skip complex relations for now
-    const user = await db.user.create({
+    const user = await prisma.user.create({
       data: {
         email: personalInfo.email,
         name: personalInfo.name,
@@ -67,11 +76,14 @@ export async function POST(request: NextRequest) {
 
   } catch (error: any) {
     console.error('❌ Registration error:', error);
+    console.error('Error details:', error?.message);
+    console.error('Error code:', error?.code);
     
     return NextResponse.json(
       { 
-        error: 'Registration failed',
-        details: error.message 
+        error: error?.message || 'Registration failed',
+        details: error.message,
+        code: error.code
       },
       { status: 500 }
     );

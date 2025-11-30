@@ -158,8 +158,8 @@ function ProfileContent() {
       setMessage('Profile updated successfully');
       setUser(prev => ({ ...prev, ...data.user }));
       if (data.user?.avatar) setForm(prev => ({ ...prev, avatar: data.user.avatar }));
-      // Redirect back to view mode after saving
-      setTimeout(() => router.push('/profile'), 1500);
+      // Redirect to dashboard after saving
+      setTimeout(() => router.push('/dashboard'), 1500);
     } catch (err: any) {
       setError(err.message || 'Failed to update profile');
     } finally {
@@ -169,10 +169,10 @@ function ProfileContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="min-h-screen flex items-center justify-center bg-slate-950">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading profile...</p>
+          <p className="text-slate-400">Loading profile...</p>
         </div>
       </div>
     );
@@ -181,72 +181,72 @@ function ProfileContent() {
   // EDIT MODE
   if (isEditMode) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8 px-4">
+      <div className="min-h-screen bg-slate-950 py-8 px-4">
         <div className="max-w-2xl mx-auto">
-          <Button variant="ghost" onClick={() => router.back()} className="mb-4">
+          <Button variant="ghost" onClick={() => router.back()} className="mb-4 text-slate-400 hover:text-slate-200">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back
           </Button>
 
-          <Card className="bg-white">
+          <Card className="bg-slate-900 border-slate-700">
             <CardHeader>
-              <CardTitle className="text-2xl">Edit Profile</CardTitle>
+              <CardTitle className="text-2xl text-slate-100">Edit Profile</CardTitle>
             </CardHeader>
             <CardContent>
-              {message && <div className="bg-green-50 border border-green-200 text-green-700 px-3 py-2 rounded mb-3">{message}</div>}
-              {error && <div className="bg-red-50 border border-red-200 text-red-700 px-3 py-2 rounded mb-3">{error}</div>}
+              {message && <div className="bg-green-900/30 border border-green-700 text-green-300 px-3 py-2 rounded mb-3">{message}</div>}
+              {error && <div className="bg-red-900/30 border border-red-700 text-red-300 px-3 py-2 rounded mb-3">{error}</div>}
 
               <form onSubmit={handleSave} className="space-y-4">
                 <div>
-                  <Label htmlFor="name">Full Name</Label>
-                  <Input id="name" value={form.name} onChange={(e) => setForm(prev => ({ ...prev, name: e.target.value }))} />
+                  <Label htmlFor="name" className="text-slate-200">Full Name</Label>
+                  <Input id="name" value={form.name} onChange={(e) => setForm(prev => ({ ...prev, name: e.target.value }))} className="bg-slate-800 border-slate-700 text-slate-100" />
                 </div>
 
                 <div>
-                  <Label htmlFor="email">Email</Label>
-                  <Input id="email" value={form.email} disabled />
+                  <Label htmlFor="email" className="text-slate-200">Email</Label>
+                  <Input id="email" value={form.email} disabled className="bg-slate-800 border-slate-700 text-slate-400 cursor-not-allowed" />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="studentId">Student ID</Label>
-                    <Input id="studentId" value={form.studentId} onChange={(e) => setForm(prev => ({ ...prev, studentId: e.target.value }))} />
+                    <Label htmlFor="studentId" className="text-slate-200">Student ID</Label>
+                    <Input id="studentId" value={form.studentId} onChange={(e) => setForm(prev => ({ ...prev, studentId: e.target.value }))} className="bg-slate-800 border-slate-700 text-slate-100" />
                   </div>
                   <div>
-                    <Label htmlFor="major">Major</Label>
-                    <Input id="major" value={form.major} onChange={(e) => setForm(prev => ({ ...prev, major: e.target.value }))} />
+                    <Label htmlFor="major" className="text-slate-200">Major</Label>
+                    <Input id="major" value={form.major} onChange={(e) => setForm(prev => ({ ...prev, major: e.target.value }))} className="bg-slate-800 border-slate-700 text-slate-100" />
                   </div>
                 </div>
 
                 <div>
-                  <Label htmlFor="year">Year</Label>
-                  <Input id="year" value={form.year} onChange={(e) => setForm(prev => ({ ...prev, year: e.target.value }))} placeholder="1,2,3,4" />
+                  <Label htmlFor="year" className="text-slate-200">Year</Label>
+                  <Input id="year" value={form.year} onChange={(e) => setForm(prev => ({ ...prev, year: e.target.value }))} placeholder="1,2,3,4" className="bg-slate-800 border-slate-700 text-slate-100" />
                 </div>
 
                 <div>
-                  <Label htmlFor="bio">Bio</Label>
-                  <Textarea id="bio" value={form.bio} onChange={(e) => setForm(prev => ({ ...prev, bio: e.target.value }))} rows={4} />
+                  <Label htmlFor="bio" className="text-slate-200">Bio</Label>
+                  <Textarea id="bio" value={form.bio} onChange={(e) => setForm(prev => ({ ...prev, bio: e.target.value }))} rows={4} className="bg-slate-800 border-slate-700 text-slate-100" />
                 </div>
 
                 <div>
-                  <Label>Profile Photo</Label>
+                  <Label className="text-slate-200">Profile Photo</Label>
                   <div className="flex items-center gap-4">
-                    <div className="w-24 h-24 bg-gray-100 rounded-full overflow-hidden flex items-center justify-center">
+                    <div className="w-24 h-24 bg-slate-800 border border-slate-700 rounded-full overflow-hidden flex items-center justify-center">
                       {form.avatar ? (
                         <img src={form.avatar.startsWith('data:') ? form.avatar : form.avatar} alt="avatar" className="w-full h-full object-cover" />
                       ) : (
-                        <div className="text-gray-400">No photo</div>
+                        <div className="text-slate-500">No photo</div>
                       )}
                     </div>
                     <div>
-                      <input type="file" accept="image/*" onChange={(e) => handleFile(e.target.files?.[0])} />
-                      <p className="text-xs text-gray-500 mt-1">PNG/JPG recommended. Max 2MB.</p>
+                      <input type="file" accept="image/*" onChange={(e) => handleFile(e.target.files?.[0])} className="text-slate-400" />
+                      <p className="text-xs text-slate-500 mt-1">PNG/JPG recommended. Max 2MB.</p>
                     </div>
                   </div>
                 </div>
 
                 <div className="flex justify-end gap-3 pt-4">
-                  <Button variant="outline" onClick={() => router.back()}>Cancel</Button>
+                  <Button variant="outline" onClick={() => router.back()} className="border-slate-700 text-slate-300 hover:bg-slate-800">Cancel</Button>
                   <Button type="submit" className="bg-blue-600 hover:bg-blue-700" disabled={loading}>
                     {loading ? 'Saving...' : 'Save Changes'}
                   </Button>
@@ -261,21 +261,21 @@ function ProfileContent() {
 
   // VIEW MODE
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8 px-4">
+    <div className="min-h-screen bg-slate-950 py-8 px-4">
       <div className="max-w-4xl mx-auto">
-        <Button variant="ghost" onClick={() => router.back()} className="mb-4">
+        <Button variant="ghost" onClick={() => router.back()} className="mb-4 text-slate-400 hover:text-slate-200">
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back
         </Button>
 
         {/* Header Card - Personal Info */}
-        <Card className="bg-white mb-6 overflow-hidden">
+        <Card className="bg-slate-900 border-slate-700 mb-6 overflow-hidden">
           <CardContent className="pt-6">
             <div className="flex flex-col md:flex-row gap-6">
               <div className="flex flex-col items-center">
                 <Avatar className="w-32 h-32">
                   <AvatarImage src={user.avatar} alt={user.name} />
-                  <AvatarFallback className="bg-gradient-to-br from-blue-400 to-blue-600 text-white text-4xl font-bold">
+                  <AvatarFallback className="bg-gradient-to-br from-blue-600 to-blue-800 text-white text-4xl font-bold">
                     {user.name?.charAt(0) || 'U'}
                   </AvatarFallback>
                 </Avatar>
@@ -288,25 +288,25 @@ function ProfileContent() {
               </div>
 
               <div className="flex-1">
-                <h1 className="text-3xl font-bold text-slate-900 mb-2">{user.name}</h1>
-                <p className="text-slate-600 mb-4">{user.bio || 'No bio added yet'}</p>
+                <h1 className="text-3xl font-bold text-slate-100 mb-2">{user.name}</h1>
+                <p className="text-slate-400 mb-4">{user.bio || 'No bio added yet'}</p>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label className="text-slate-600">Email</Label>
-                    <p className="font-medium">{user.email}</p>
+                    <Label className="text-slate-400">Email</Label>
+                    <p className="font-medium text-slate-200">{user.email}</p>
                   </div>
                   <div>
-                    <Label className="text-slate-600">Student ID</Label>
-                    <p className="font-medium">{user.studentId || 'N/A'}</p>
+                    <Label className="text-slate-400">Student ID</Label>
+                    <p className="font-medium text-slate-200">{user.studentId || 'N/A'}</p>
                   </div>
                   <div>
-                    <Label className="text-slate-600">Major</Label>
-                    <p className="font-medium">{user.major || 'N/A'}</p>
+                    <Label className="text-slate-400">Major</Label>
+                    <p className="font-medium text-slate-200">{user.major || 'N/A'}</p>
                   </div>
                   <div>
-                    <Label className="text-slate-600">Year</Label>
-                    <p className="font-medium">Year {user.year || 'N/A'}</p>
+                    <Label className="text-slate-400">Year</Label>
+                    <p className="font-medium text-slate-200">Year {user.year || 'N/A'}</p>
                   </div>
                 </div>
               </div>
@@ -315,10 +315,10 @@ function ProfileContent() {
         </Card>
 
         {/* Career Interests */}
-        <Card className="bg-white mb-6">
+        <Card className="bg-slate-900 border-slate-700 mb-6">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Target className="w-5 h-5 text-purple-600" />
+            <CardTitle className="flex items-center gap-2 text-slate-100">
+              <Target className="w-5 h-5 text-purple-500" />
               Career Interests
             </CardTitle>
           </CardHeader>
@@ -328,23 +328,23 @@ function ProfileContent() {
                 <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mx-auto"></div>
               </div>
             ) : careerInterests.length === 0 ? (
-              <p className="text-slate-500">No career interests added yet.</p>
+              <p className="text-slate-400">No career interests added yet.</p>
             ) : (
               <div className="space-y-3">
                 {careerInterests.map((interest: any) => (
-                  <div key={interest.id} className="border border-slate-200 rounded-lg p-4">
+                  <div key={interest.id} className="border border-slate-700 bg-slate-800/50 rounded-lg p-4">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
-                        <h3 className="font-semibold text-slate-900">{interest.role}</h3>
-                        <p className="text-sm text-slate-600">{interest.industry}</p>
+                        <h3 className="font-semibold text-slate-100">{interest.role}</h3>
+                        <p className="text-sm text-slate-400">{interest.industry}</p>
                         {interest.description && (
-                          <p className="text-sm text-slate-700 mt-2">{interest.description}</p>
+                          <p className="text-sm text-slate-300 mt-2">{interest.description}</p>
                         )}
                       </div>
                       <Badge className={`whitespace-nowrap ml-2 ${
-                        interest.priority === 'HIGH' ? 'bg-red-100 text-red-800' :
-                        interest.priority === 'MEDIUM' ? 'bg-yellow-100 text-yellow-800' :
-                        'bg-green-100 text-green-800'
+                        interest.priority === 'HIGH' ? 'bg-red-900/30 text-red-300' :
+                        interest.priority === 'MEDIUM' ? 'bg-yellow-900/30 text-yellow-300' :
+                        'bg-green-900/30 text-green-300'
                       }`}>
                         {interest.priority || 'MEDIUM'}
                       </Badge>
@@ -357,10 +357,10 @@ function ProfileContent() {
         </Card>
 
         {/* Skills */}
-        <Card className="bg-white mb-6">
+        <Card className="bg-slate-900 border-slate-700 mb-6">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Zap className="w-5 h-5 text-yellow-600" />
+            <CardTitle className="flex items-center gap-2 text-slate-100">
+              <Zap className="w-5 h-5 text-yellow-500" />
               Skills
             </CardTitle>
           </CardHeader>
@@ -370,7 +370,7 @@ function ProfileContent() {
                 <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mx-auto"></div>
               </div>
             ) : skills.length === 0 ? (
-              <p className="text-slate-500">No skills added yet.</p>
+              <p className="text-slate-400">No skills added yet.</p>
             ) : (
               <div className="flex flex-wrap gap-3">
                 {skills.map((userSkill: any) => (
@@ -390,10 +390,10 @@ function ProfileContent() {
         </Card>
 
         {/* Achievements / Progress */}
-        <Card className="bg-white">
+        <Card className="bg-slate-900 border-slate-700">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Award className="w-5 h-5 text-yellow-600" />
+            <CardTitle className="flex items-center gap-2 text-slate-100">
+              <Award className="w-5 h-5 text-yellow-500" />
               Achievements
             </CardTitle>
           </CardHeader>
@@ -403,14 +403,14 @@ function ProfileContent() {
                 <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mx-auto"></div>
               </div>
             ) : progress.filter((p: any) => p.achievedAt).length === 0 ? (
-              <p className="text-slate-500">No achievements unlocked yet. Start working on your goals!</p>
+              <p className="text-slate-400">No achievements unlocked yet. Start working on your goals!</p>
             ) : (
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {progress.filter((p: any) => p.achievedAt).map((achievement: any) => (
-                  <div key={achievement.id} className="border border-yellow-200 bg-yellow-50 rounded-lg p-4 text-center">
-                    <Award className="w-8 h-8 text-yellow-600 mx-auto mb-2" />
-                    <p className="font-semibold text-slate-900">Skill Level {achievement.level}</p>
-                    <p className="text-xs text-slate-600 mt-1">
+                  <div key={achievement.id} className="border border-yellow-900/30 bg-yellow-900/20 rounded-lg p-4 text-center">
+                    <Award className="w-8 h-8 text-yellow-500 mx-auto mb-2" />
+                    <p className="font-semibold text-slate-100">Skill Level {achievement.level}</p>
+                    <p className="text-xs text-slate-400 mt-1">
                       {achievement.achievedAt ? new Date(achievement.achievedAt).toLocaleDateString() : ''}
                     </p>
                   </div>

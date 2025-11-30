@@ -202,154 +202,20 @@ export default function UnifiedDashboard() {
   }, []);
 
   const loadStudentData = () => {
-    // Mock student data (same as before)
-    const mockPods: Pod[] = [
-      {
-        id: '1',
-        name: 'AI Innovators Pod',
-        description: 'Exploring AI career paths and technologies',
-        matchScore: 92,
-        memberCount: 4,
-        maxMembers: 5,
-        nextMeeting: {
-          title: 'AI Career Paths Discussion',
-          date: 'Tomorrow',
-          time: '3:00 PM',
-          type: 'video'
-        },
-        progress: {
-          completed: 4,
-          total: 6
-        },
-        members: [
-          { id: '1', name: 'You', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=you' },
-          { id: '2', name: 'Sarah Chen', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=sarah' },
-          { id: '3', name: 'Mike Rodriguez', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=mike' },
-          { id: '4', name: 'Lisa Wang', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=lisa' }
-        ]
-      },
-      {
-        id: '2',
-        name: 'Data Science Explorers',
-        description: 'Diving into data analysis and machine learning',
-        matchScore: 85,
-        memberCount: 5,
-        maxMembers: 5,
-        nextMeeting: {
-          title: 'Data Analysis Workshop',
-          date: 'Friday',
-          time: '2:00 PM',
-          type: 'video'
-        },
-        progress: {
-          completed: 3,
-          total: 6
-        },
-        members: [
-          { id: '1', name: 'You', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=you' },
-          { id: '5', name: 'John Kim', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=john' },
-          { id: '6', name: 'Emma Davis', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=emma' },
-          { id: '7', name: 'Alex Johnson', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=alex' },
-          { id: '8', name: 'Priya Patel', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=priya' }
-        ]
-      }
-    ];
+    // No mock pods - start empty for users to create their own
+    const mockPods: Pod[] = [];
 
-    const mockMeetings: Meeting[] = [
-      {
-        id: '1',
-        title: 'AI Career Paths Discussion',
-        podName: 'AI Innovators Pod',
-        date: 'Today',
-        time: '3:00 PM',
-        duration: '1 hour',
-        type: 'video',
-        attendees: 3,
-        maxAttendees: 4
-      },
-      {
-        id: '2',
-        title: 'Data Analysis Workshop',
-        podName: 'Data Science Explorers',
-        date: 'Tomorrow',
-        time: '2:00 PM',
-        duration: '1.5 hours',
-        type: 'video',
-        attendees: 5,
-        maxAttendees: 5
-      }
-    ];
+    const mockMeetings: Meeting[] = [];
 
-    const mockGoals: Goal[] = [
-      {
-        id: '1',
-        title: 'Complete portfolio project',
-        dueDate: '2 weeks',
-        progress: 60,
-        status: 'in-progress'
-      },
-      {
-        id: '2',
-        title: 'Learn Python basics',
-        dueDate: '1 month',
-        progress: 80,
-        status: 'in-progress'
-      }
-    ];
+    const mockGoals: Goal[] = [];
 
-    const mockSkills: Skill[] = [
-      { name: 'Python', level: 4, maxLevel: 5, category: 'Technical' },
-      { name: 'Data Analysis', level: 3, maxLevel: 5, category: 'Technical' },
-      { name: 'Communication', level: 3, maxLevel: 5, category: 'Soft Skills' }
-    ];
+    const mockSkills: Skill[] = [];
 
-    const mockAchievements: Achievement[] = [
-      {
-        id: '1',
-        title: 'First Pod Meeting',
-        description: 'Attended your first pod meeting',
-        icon: '🎉',
-        earnedAt: '1 week ago'
-      },
-      {
-        id: '2',
-        title: 'Skill Milestone',
-        description: 'Completed Python basics module',
-        icon: '⭐',
-        earnedAt: '3 days ago'
-      }
-    ];
+    const mockAchievements: Achievement[] = [];
 
-    const mockActivities: Activity[] = [
-      {
-        id: '1',
-        user: 'Sarah Chen',
-        action: 'completed',
-        target: '"Data Visualization" skill',
-        timestamp: '2 hours ago',
-        type: 'skill'
-      },
-      {
-        id: '2',
-        user: 'Mike Rodriguez',
-        action: 'scheduled new meeting',
-        target: '"Tech Interview Prep"',
-        timestamp: '5 hours ago',
-        type: 'meeting'
-      }
-    ];
+    const mockActivities: Activity[] = [];
 
-    const mockMentors: Mentor[] = [
-      {
-        id: '1',
-        name: 'Sarah Chen',
-        title: 'AI Engineer',
-        company: 'Google',
-        avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=sarah-mentor',
-        availability: 'This week',
-        expertise: ['AI/ML', 'Career Development']
-      }
-    ];
+    const mockMentors: Mentor[] = [];
 
     setPods(mockPods);
     setMeetings(mockMeetings);

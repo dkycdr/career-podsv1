@@ -228,11 +228,7 @@ export default function AdminPage() {
               </Link>
             </div>
 
-            <div className="mt-4 p-4 bg-purple-500/10 border border-purple-500/30 rounded-lg">
-              <p className="text-xs text-purple-300">
-                <strong>Hint:</strong> Admin access key is "presuniv-admin-2024"
-              </p>
-            </div>
+
           </CardContent>
         </Card>
       </div>

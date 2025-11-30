@@ -52,8 +52,8 @@ export default function LoginPage() {
       
       <Card className="w-full max-w-md glass-alt card-border border-slate-700/50 bg-slate-900/40 relative z-10">
         <CardHeader className="text-center">
-          <div className="mb-4 flex justify-center">
-            <img src="/logo.png" alt="Career Pods" className="w-12 h-12 rounded-lg" />
+          <div className="w-12 h-12 gradient-brand rounded-lg flex items-center justify-center mx-auto mb-4 glow-md">
+            <Users className="w-6 h-6 text-white" />
           </div>
           <CardTitle className="text-2xl gradient-text">
             Sign In

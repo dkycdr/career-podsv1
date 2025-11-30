@@ -22,8 +22,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div className="flex items-center space-x-3">
-              <img src="/logo.png" alt="Career Pods Logo" className="w-10 h-10 rounded-lg" />
-              <h1 className="text-2xl font-bold gradient-text">Career Pods</h1>
+              <div className="w-10 h-10 gradient-brand rounded-lg flex items-center justify-center glow-md pulse-glow">
+                <Users className="w-6 h-6 text-white" />
+              </div>
+              <h1 className="text-2xl font-bold gradient-text">Career Explorer Pods</h1>
             </div>
             <div className="flex space-x-3">
               <Button variant="ghost" className="text-slate-300 hover:text-cyan-400 hover:bg-cyan-500/10" onClick={() => window.location.href = '/login'}>
@@ -212,7 +214,7 @@ export default function Home() {
             <div>
               <h4 className="font-semibold mb-4 text-cyan-300">Contact</h4>
               <ul className="space-y-2 text-slate-400 text-sm">
-                <li>dwiky.candra@student.president.ac.id</li>
+                <li>contact@presuniv-pods.edu</li>
                 <li>President University</li>
                 <li>Jababeka, Cikarang</li>
               </ul>
@@ -220,7 +222,7 @@ export default function Home() {
           </div>
           
           <div className="border-t border-slate-800 pt-8 text-center text-slate-500 text-sm">
-            <p>&copy; 2025 Career Pods - President University. All rights reserved.</p>
+            <p>&copy; 2025 Career Explorer Pods. All rights reserved.</p>
           </div>
         </div>
       </footer>

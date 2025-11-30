@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
+import { prisma } from '@/lib/prisma';
 
 export async function GET(request: NextRequest) {
   try {
@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
 
     if (userId) {
       // Cari user berdasarkan ID
-      user = await db.user.findUnique({
+      user = await prisma.user.findUnique({
         where: { id: userId },
         select: {
           id: true,
@@ -30,6 +30,8 @@ export async function GET(request: NextRequest) {
           year: true,
           role: true,
           studentId: true,
+          bio: true,
+          avatar: true,
           createdAt: true
         }
       });
@@ -40,7 +42,7 @@ export async function GET(request: NextRequest) {
         formattedEmail = email.replace('@student.president.id', '@student.president.ac.id');
       }
 
-      user = await db.user.findUnique({
+      user = await prisma.user.findUnique({
         where: { email: formattedEmail },
         select: {
           id: true,
@@ -50,6 +52,8 @@ export async function GET(request: NextRequest) {
           year: true,
           role: true,
           studentId: true,
+          bio: true,
+          avatar: true,
           createdAt: true
         }
       });

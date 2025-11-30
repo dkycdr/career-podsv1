@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if user already exists
+    // Check if user already exists by email
     const existingUser = await prisma.user.findUnique({
       where: { email: normalizedEmail }
     });
@@ -34,6 +34,18 @@ export async function POST(request: NextRequest) {
     if (existingUser) {
       return NextResponse.json(
         { error: 'User with this email already exists' },
+        { status: 409 }
+      );
+    }
+
+    // Check if studentId already exists
+    const existingStudentId = await prisma.user.findUnique({
+      where: { studentId: personalInfo.studentId }
+    });
+
+    if (existingStudentId) {
+      return NextResponse.json(
+        { error: 'This student ID is already registered' },
         { status: 409 }
       );
     }
@@ -49,15 +61,15 @@ export async function POST(request: NextRequest) {
     // Create user ONLY - skip complex relations for now
     const user = await prisma.user.create({
       data: {
-        email: personalInfo.email,
+        email: normalizedEmail,
         name: personalInfo.name,
-        studentId: personalInfo.studentId,
+        studentId: personalInfo.studentId || null,
         major: personalInfo.major || '',
         year: personalInfo.year ? parseInt(personalInfo.year) : null,
         bio: personalInfo.bio || '',
         role: 'STUDENT',
-        password: hashedPassword, // ← NOW THIS WILL WORK
-        availability: null // skip for now
+        password: hashedPassword,
+        availability: null
       }
     });
 

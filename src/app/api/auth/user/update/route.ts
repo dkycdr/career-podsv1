@@ -64,11 +64,11 @@ export async function POST(request: NextRequest) {
     const updated = await prisma.user.update({
       where: { id: userId },
       data: {
-        name: name ?? user.name,
-        studentId: studentId ?? user.studentId,
-        major: major ?? user.major,
+        name: name || user.name,
+        studentId: studentId && studentId.trim() ? studentId : user.studentId, // Keep existing if empty
+        major: major || user.major,
         year: year ? parseInt(String(year)) : user.year,
-        bio: bio ?? user.bio,
+        bio: bio || user.bio,
         avatar: avatarPath
       }
     });

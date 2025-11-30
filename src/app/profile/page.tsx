@@ -64,8 +64,11 @@ function ProfileContent() {
       setLoading(true);
       try {
         const res = await fetch(`/api/auth/user?userId=${userId}`);
+        if (!res.ok) {
+          const data = await res.json();
+          throw new Error(data.error || `Failed to load (${res.status})`);
+        }
         const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'Failed to load');
         const u = data.user;
         setUser({
           id: u.id,
@@ -87,8 +90,10 @@ function ProfileContent() {
           bio: u.bio || '',
           avatar: u.avatar || ''
         });
+        setError(null);
       } catch (err: any) {
-        setError(err.message || 'Unable to load profile');
+        console.error('❌ Profile load error:', err);
+        setError(err.message || 'Unable to load profile. Please refresh the page.');
       } finally {
         setLoading(false);
       }

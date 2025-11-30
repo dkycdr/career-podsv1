@@ -116,64 +116,27 @@ const usePodsData = (userId: string) => {
   const [pods, setPods] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Mock template pods - fallback for new users or when API returns empty
-  const mockTemplatePods = [
-    {
-      id: 'it-pod-demo',
-      name: '💻 IT Career & Tech Stack Mastery',
-      description: 'IT career pod: explore paths (Frontend, Backend, DevOps, Cloud), build portfolio projects, discuss development best practices, learn from senior developers',
-      status: 'ACTIVE',
-      maxMembers: 6,
-      memberships: [
-        { id: 'm1', user: { name: 'You', avatar: null } },
-        { id: 'm2', user: { name: 'Ahmad Rizki', avatar: null } },
-        { id: 'm3', user: { name: 'Siti Nurani', avatar: null } }
-      ],
-      isTemplate: true // Mark as template
-    },
-    {
-      id: 'biz-pod-demo',
-      name: '📊 Business & Entrepreneurship Growth',
-      description: 'For business enthusiasts: ideation, business model validation, pitching skills, networking with entrepreneurs, discuss funding & scaling strategies',
-      status: 'ACTIVE',
-      maxMembers: 5,
-      memberships: [
-        { id: 'm1', user: { name: 'You', avatar: null } },
-        { id: 'm2', user: { name: 'Rudi Hartono', avatar: null } }
-      ],
-      isTemplate: true
-    },
-    {
-      id: 'design-pod-demo',
-      name: '🎨 Product Design & UX/UI Mastery',
-      description: 'Design enthusiasts: case study analysis, prototyping, user research methods, design thinking workshops, build real projects together',
-      status: 'ACTIVE',
-      maxMembers: 5,
-      memberships: [
-        { id: 'm1', user: { name: 'You', avatar: null } },
-        { id: 'm2', user: { name: 'Maya Putri', avatar: null } }
-      ],
-      isTemplate: true
-    }
-  ];
+  // No mock template pods - only show user's actual pods (100% personalized)
+  // Users must create their own pods to see them
+  const mockTemplatePods = []; // Empty - no templates
 
   const fetchPodsData = async () => {
     try {
       const response = await fetch(`/api/pods?userId=${userId}`);
       const data = await response.json();
       
-      // If API returns pods, use them (100% personalized)
+      // Only show actual user pods from API (100% personalized)
       if (data.success && data.pods && data.pods.length > 0) {
         setPods(data.pods);
       } else {
-        // If empty/no data, show mock templates as fallback
-        console.log('No pods found, showing template pods as examples');
-        setPods(mockTemplatePods);
+        // If no pods, show empty state (not mock templates)
+        console.log('No pods found - user has not created any pods yet');
+        setPods([]);
       }
     } catch (error) {
       console.error('Error fetching pods data:', error);
-      // On error, show mock templates
-      setPods(mockTemplatePods);
+      // On error, show empty state
+      setPods([]);
     } finally {
       setLoading(false);
     }
@@ -920,7 +883,7 @@ export default function InteractiveDashboard() {
                   <Users className="w-8 h-8 text-slate-400" />
                 </div>
                 <h3 className="text-lg font-semibold text-slate-100 mb-2">No Pods Yet</h3>
-                <p className="text-slate-400 mb-6 max-w-sm mx-auto">Explore template pods or create your own to get started with your career exploration</p>
+                <p className="text-slate-400 mb-6 max-w-sm mx-auto">Create your first pod to start your career journey. Your pods will be 100% personalized to your interests and goals.</p>
                 <Button onClick={handleCreatePod} className="bg-cyan-600 hover:bg-cyan-700">
                   <Plus className="w-4 h-4 mr-2" />
                   Create Your First Pod

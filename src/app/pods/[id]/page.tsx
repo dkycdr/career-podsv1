@@ -194,12 +194,13 @@ export default function PodDetailPage() {
           {/* Right Column - Chat */}
           <div className="lg:col-span-2">
             <div className="h-[600px] rounded-xl overflow-hidden shadow-xl">
-              {userId && (
+              {userId && pod && (
                 <PodChat
                   podId={podId}
                   userId={userId}
                   userName={userName}
                   userRole={userRole}
+                  podName={pod.name}
                 />
               )}
             </div>

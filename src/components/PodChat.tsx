@@ -19,9 +19,10 @@ interface PodChatProps {
   userId: string;
   userName: string;
   userRole: string;
+  podName?: string;
 }
 
-export default function PodChat({ podId, userId, userName, userRole }: PodChatProps) {
+export default function PodChat({ podId, userId, userName, userRole, podName }: PodChatProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -100,7 +101,7 @@ export default function PodChat({ podId, userId, userName, userRole }: PodChatPr
       <div className="bg-gradient-to-r from-cyan-600/20 to-blue-600/20 border-b border-slate-700/50 px-4 py-3 flex items-center gap-2">
         <MessageSquare className="w-5 h-5 text-cyan-400" />
         <div>
-          <p className="text-sm font-bold text-slate-100">Pod Discussion</p>
+          <p className="text-sm font-bold text-slate-100">{podName || 'Pod Discussion'}</p>
           <p className="text-xs text-slate-400">{messages.length} messages</p>
         </div>
       </div>

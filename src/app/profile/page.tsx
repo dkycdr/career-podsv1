@@ -154,13 +154,19 @@ function ProfileContent() {
       });
 
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Update failed');
+      if (!res.ok) {
+        console.error('❌ Update failed:', data);
+        throw new Error(data.error || data.details || 'Update failed');
+      }
+      
+      console.log('✅ Profile updated successfully');
       setMessage('Profile updated successfully');
       setUser(prev => ({ ...prev, ...data.user }));
       if (data.user?.avatar) setForm(prev => ({ ...prev, avatar: data.user.avatar }));
       // Redirect to dashboard after saving
       setTimeout(() => router.push('/dashboard'), 1500);
     } catch (err: any) {
+      console.error('❌ Profile update error:', err);
       setError(err.message || 'Failed to update profile');
     } finally {
       setLoading(false);

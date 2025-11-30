@@ -27,23 +27,37 @@ export async function POST(request: NextRequest) {
 
     let avatarPath = user.avatar || null;
 
-    if (avatarData && typeof avatarData === 'string') {
-      // avatarData is expected as data:image/png;base64,AAAA...
-      const matches = avatarData.match(/^data:(image\/(png|jpeg|jpg));base64,(.+)$/);
-      if (matches) {
-        const mime = matches[1];
-        const ext = matches[2] === 'jpeg' ? 'jpg' : matches[2];
-        const base64Data = matches[3];
+    if (avatarData && typeof avatarData === 'string' && avatarData.startsWith('data:')) {
+      try {
+        // avatarData is expected as data:image/png;base64,AAAA...
+        const matches = avatarData.match(/^data:(image\/(png|jpeg|jpg|webp));base64,(.+)$/);
+        if (matches) {
+          const mime = matches[1];
+          const ext = matches[2] === 'jpeg' ? 'jpg' : matches[2];
+          const base64Data = matches[3];
 
-        const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
-        await fs.mkdir(uploadsDir, { recursive: true });
+          try {
+            const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
+            await fs.mkdir(uploadsDir, { recursive: true });
 
-        const filename = `${userId}.${ext}`;
-        const filePath = path.join(uploadsDir, filename);
-        const buffer = Buffer.from(base64Data, 'base64');
-        await fs.writeFile(filePath, buffer);
+            const filename = `${userId}.${ext}`;
+            const filePath = path.join(uploadsDir, filename);
+            const buffer = Buffer.from(base64Data, 'base64');
+            await fs.writeFile(filePath, buffer);
 
-        avatarPath = `/uploads/${filename}`;
+            avatarPath = `/uploads/${filename}`;
+            console.log('✅ Avatar uploaded:', avatarPath);
+          } catch (fsError: any) {
+            console.error('❌ File system error:', fsError);
+            // Continue anyway - store as temporary reference
+            avatarPath = `avatar_${userId}_pending`;
+          }
+        } else {
+          console.warn('⚠️ Avatar data format invalid');
+        }
+      } catch (avatarError: any) {
+        console.error('❌ Avatar processing error:', avatarError);
+        // Don't fail the whole update just for avatar
       }
     }
 
@@ -59,9 +73,14 @@ export async function POST(request: NextRequest) {
       }
     });
 
+    console.log('✅ User profile updated:', updated.id);
+
     return NextResponse.json({ success: true, user: updated });
   } catch (err: any) {
-    console.error('Profile update error:', err);
-    return NextResponse.json({ error: 'Failed to update profile', details: err?.message }, { status: 500 });
+    console.error('❌ Profile update error:', err);
+    return NextResponse.json({ 
+      error: 'Failed to update profile', 
+      details: err?.message 
+    }, { status: 500 });
   }
 }

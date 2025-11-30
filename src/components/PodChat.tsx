@@ -29,6 +29,11 @@ export default function PodChat({ podId, userId, userName, userRole, podName }: 
   const [isSending, setIsSending] = useState(false);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
 
+  // Debug podName
+  useEffect(() => {
+    console.log('PodChat podName prop:', podName);
+  }, [podName]);
+
   const scrollToBottom = () => {
     if (messagesContainerRef.current) {
       setTimeout(() => {

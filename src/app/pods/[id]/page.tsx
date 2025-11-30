@@ -28,13 +28,14 @@ export default function PodDetailPage() {
   useEffect(() => {
     // Get userId from localStorage or query
     const id = localStorage.getItem('userId');
-    const name = localStorage.getItem('userName') || 'Unknown';
+    const name = localStorage.getItem('userName');
+    console.log('LocalStorage values:', { id, name }); // Debug
     if (!id) {
       router.push('/login');
       return;
     }
     setUserId(id);
-    setUserName(name);
+    setUserName(name || 'User'); // Fallback to 'User' if not found
     fetchPodDetails(id);
   }, [podId, router]);
 
@@ -46,6 +47,8 @@ export default function PodDetailPage() {
       if (data.success && data.pods) {
         const foundPod = data.pods.find((p: Pod) => p.id === podId);
         if (foundPod) {
+          console.log('Pod found:', foundPod); // Debug
+          console.log('Pod name:', foundPod.name); // Debug
           setPod(foundPod);
           // Check if user is mentor/lead
           if (foundPod.memberships) {
@@ -194,15 +197,15 @@ export default function PodDetailPage() {
           {/* Right Column - Chat */}
           <div className="lg:col-span-2">
             <div className="h-[600px] rounded-xl overflow-hidden shadow-xl">
-              {userId && pod && (
+              {userId && pod ? (
                 <PodChat
                   podId={podId}
                   userId={userId}
                   userName={userName}
                   userRole={userRole}
-                  podName={pod.name}
+                  podName={pod.name || `Pod ${podId}`}
                 />
-              )}
+              ) : null}
             </div>
           </div>
         </div>

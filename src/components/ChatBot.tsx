@@ -98,24 +98,29 @@ export default function ChatBot() {
   };
 
   return (
-    <div className="relative h-[600px] flex flex-col overflow-hidden rounded-3xl border border-white/10 shadow-2xl bg-slate-950/50 backdrop-blur-3xl">
+    <div className="relative h-[600px] flex flex-col overflow-hidden rounded-3xl border border-white/10 shadow-2xl bg-slate-950/50 backdrop-blur-3xl animate-spring-up">
+      {/* Shimmer Border */}
+      <div className="absolute inset-0 z-0 pointer-events-none rounded-3xl overflow-hidden">
+        <div className="absolute inset-0 opacity-20 animate-shimmer bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" style={{ backgroundSize: '200% 100%' }} />
+      </div>
+
       {/* Background Ambience */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/2" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[100px] pointer-events-none translate-y-1/2 -translate-x-1/2" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/2 animate-pulse" style={{ animationDuration: '4s' }} />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[100px] pointer-events-none translate-y-1/2 -translate-x-1/2 animate-pulse" style={{ animationDuration: '7s' }} />
 
       {/* Header */}
       <div className="relative z-10 px-6 py-5 border-b border-white/5 flex items-center justify-between bg-white/5 backdrop-blur-md">
         <div className="flex items-center gap-4">
-          <div className="relative">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+          <div className="relative group">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20 animate-float-slow">
               <Bot className="w-6 h-6 text-white" />
             </div>
-            <div className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-green-500 rounded-full border-[3px] border-slate-900"></div>
+            <div className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-green-500 rounded-full border-[3px] border-slate-900 shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div>
           </div>
           <div>
             <div className="flex items-center gap-2">
               <h2 className="font-bold text-xl text-white tracking-tight">Career AI Assistant</h2>
-              <Badge variant="outline" className="bg-cyan-500/10 text-cyan-400 border-cyan-500/20 px-2 py-0.5 text-xs">
+              <Badge variant="outline" className="bg-cyan-500/10 text-cyan-400 border-cyan-500/20 px-2 py-0.5 text-xs animate-pulse">
                 PRO
               </Badge>
             </div>
@@ -126,7 +131,7 @@ export default function ChatBot() {
           </div>
         </div>
         <div className="flex gap-2">
-          <Button variant="ghost" size="icon" className="text-slate-400 hover:text-white hover:bg-white/10 rounded-xl" onClick={handleClear} title="Reset Chat">
+          <Button variant="ghost" size="icon" className="text-slate-400 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-300 hover:rotate-180" onClick={handleClear} title="Reset Chat">
             <RotateCcw className="w-5 h-5" />
           </Button>
         </div>
@@ -138,20 +143,20 @@ export default function ChatBot() {
           {messages.map((msg) => (
             <div
               key={msg.id}
-              className={`flex gap-4 animate-in fade-in slide-in-from-bottom-4 duration-300 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+              className={`flex gap-4 animate-slide-up-fade ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               {msg.sender === 'ai' && (
                 <div className="flex-shrink-0 mt-1">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-slate-800 to-slate-900 border border-white/10 flex items-center justify-center shadow-lg">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-slate-800 to-slate-900 border border-white/10 flex items-center justify-center shadow-lg animate-float-slow" style={{ animationDuration: '5s' }}>
                     <Bot className="w-5 h-5 text-cyan-400" />
                   </div>
                 </div>
               )}
 
               <div
-                className={`max-w-[75%] px-6 py-4 text-[15px] leading-relaxed shadow-xl backdrop-blur-sm ${msg.sender === 'user'
-                  ? 'bg-gradient-to-br from-cyan-600 to-blue-600 text-white rounded-3xl rounded-tr-sm border border-cyan-400/20'
-                  : 'bg-white/5 text-slate-200 rounded-3xl rounded-tl-sm border border-white/10 hover:bg-white/10 transition-colors'
+                className={`max-w-[75%] px-6 py-4 text-[15px] leading-relaxed shadow-xl backdrop-blur-sm transition-all duration-300 hover:scale-[1.01] ${msg.sender === 'user'
+                    ? 'bg-gradient-to-br from-cyan-600 to-blue-600 text-white rounded-3xl rounded-tr-sm border border-cyan-400/20'
+                    : 'bg-white/5 text-slate-200 rounded-3xl rounded-tl-sm border border-white/10 hover:bg-white/10 transition-colors'
                   }`}
               >
                 {msg.text}
@@ -171,16 +176,16 @@ export default function ChatBot() {
           ))}
 
           {isLoading && (
-            <div className="flex gap-4 animate-in fade-in slide-in-from-bottom-4 duration-300">
+            <div className="flex gap-4 animate-slide-up-fade">
               <div className="flex-shrink-0 mt-1">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-slate-800 to-slate-900 border border-white/10 flex items-center justify-center shadow-lg">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-slate-800 to-slate-900 border border-white/10 flex items-center justify-center shadow-lg animate-pulse">
                   <Bot className="w-5 h-5 text-cyan-400" />
                 </div>
               </div>
               <div className="bg-white/5 border border-white/10 px-6 py-5 rounded-3xl rounded-tl-sm backdrop-blur-sm flex gap-2 items-center">
-                <div className="w-2.5 h-2.5 bg-cyan-400 rounded-full animate-bounce"></div>
-                <div className="w-2.5 h-2.5 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0.15s' }}></div>
-                <div className="w-2.5 h-2.5 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.3s' }}></div>
+                <div className="w-2.5 h-2.5 bg-cyan-400 rounded-full animate-typing-bounce"></div>
+                <div className="w-2.5 h-2.5 bg-purple-400 rounded-full animate-typing-bounce" style={{ animationDelay: '0.15s' }}></div>
+                <div className="w-2.5 h-2.5 bg-blue-400 rounded-full animate-typing-bounce" style={{ animationDelay: '0.3s' }}></div>
               </div>
             </div>
           )}
@@ -190,7 +195,7 @@ export default function ChatBot() {
 
       {/* Input Form */}
       <div className="relative z-10 p-6 pt-2">
-        <div className="bg-slate-900/50 p-2 rounded-[24px] border border-white/10 shadow-xl backdrop-blur-xl">
+        <div className="bg-slate-900/50 p-2 rounded-[24px] border border-white/10 shadow-xl backdrop-blur-xl focus-within:border-cyan-500/50 focus-within:ring-1 focus-within:ring-cyan-500/20 focus-within:shadow-[0_0_25px_rgba(6,182,212,0.15)] transition-all duration-300">
           <form onSubmit={handleSendMessage} className="relative flex items-end gap-2">
             <Input
               value={input}

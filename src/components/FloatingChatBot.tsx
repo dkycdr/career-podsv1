@@ -134,24 +134,26 @@ export default function FloatingChatBot() {
             right: '24px',
             zIndex: 9999,
           }}
-          className="w-[380px] h-[600px] max-h-[80vh] flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-500"
+          className="w-[380px] h-[600px] max-h-[80vh] flex flex-col overflow-hidden animate-spring-up"
         >
-          {/* Glass Container */}
-          <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-2xl rounded-3xl border border-white/10 shadow-2xl" />
+          {/* Glass Container with Shimmer Border */}
+          <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-2xl rounded-3xl border border-white/10 shadow-2xl overflow-hidden">
+            <div className="absolute inset-0 opacity-20 pointer-events-none animate-shimmer bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" style={{ backgroundSize: '200% 100%' }} />
+          </div>
 
           {/* Gradient Orbs Background */}
-          <div className="absolute top-[-20%] left-[-20%] w-60 h-60 bg-purple-500/30 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-[-20%] right-[-20%] w-60 h-60 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-[-20%] left-[-20%] w-60 h-60 bg-purple-500/30 rounded-full blur-3xl pointer-events-none animate-pulse" />
+          <div className="absolute bottom-[-20%] right-[-20%] w-60 h-60 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none animate-pulse" style={{ animationDelay: '1s' }} />
 
 
           {/* Header */}
           <div className="relative z-10 px-6 py-5 border-b border-white/5 flex items-center justify-between bg-white/5 backdrop-blur-md">
             <div className="flex items-center gap-4">
-              <div className="relative">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+              <div className="relative group">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20 animate-float-slow">
                   <Sparkles className="w-5 h-5 text-white fill-white/20" />
                 </div>
-                <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-slate-900"></div>
+                <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-slate-900 shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div>
               </div>
               <div>
                 <h3 className="font-bold text-base text-white tracking-tight">Career AI</h3>
@@ -177,19 +179,19 @@ export default function FloatingChatBot() {
             {messages.map((msg) => (
               <div
                 key={msg.id}
-                className={`flex gap-3 animate-in fade-in slide-in-from-bottom-4 duration-300 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'
+                className={`flex gap-3 animate-slide-up-fade ${msg.sender === 'user' ? 'justify-end' : 'justify-start'
                   }`}
               >
                 {msg.sender === 'ai' && (
                   <div className="flex-shrink-0 mt-1">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-slate-800 to-slate-900 border border-white/10 flex items-center justify-center shadow-lg">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-slate-800 to-slate-900 border border-white/10 flex items-center justify-center shadow-lg animate-float-slow" style={{ animationDuration: '6s' }}>
                       <Bot className="w-4 h-4 text-cyan-400" />
                     </div>
                   </div>
                 )}
 
                 <div
-                  className={`max-w-[80%] px-5 py-3.5 text-sm leading-relaxed shadow-lg backdrop-blur-sm ${msg.sender === 'user'
+                  className={`max-w-[80%] px-5 py-3.5 text-sm leading-relaxed shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] ${msg.sender === 'user'
                       ? 'bg-gradient-to-br from-cyan-600 to-blue-600 text-white rounded-2xl rounded-tr-sm border border-cyan-400/20'
                       : 'bg-white/5 text-slate-200 rounded-2xl rounded-tl-sm border border-white/10 hover:bg-white/10 transition-colors'
                     }`}
@@ -211,16 +213,16 @@ export default function FloatingChatBot() {
             ))}
 
             {isLoading && (
-              <div className="flex gap-3 animate-in fade-in slide-in-from-bottom-4 duration-300">
+              <div className="flex gap-3 animate-slide-up-fade">
                 <div className="flex-shrink-0 mt-1">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-slate-800 to-slate-900 border border-white/10 flex items-center justify-center shadow-lg">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-slate-800 to-slate-900 border border-white/10 flex items-center justify-center shadow-lg animate-pulse">
                     <Loader className="w-4 h-4 animate-spin text-cyan-400" />
                   </div>
                 </div>
                 <div className="bg-white/5 border border-white/10 px-5 py-4 rounded-2xl rounded-tl-sm backdrop-blur-sm flex gap-2 items-center">
-                  <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce"></div>
-                  <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0.15s' }}></div>
-                  <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.3s' }}></div>
+                  <div className="w-2 h-2 bg-cyan-400 rounded-full animate-typing-bounce"></div>
+                  <div className="w-2 h-2 bg-purple-400 rounded-full animate-typing-bounce" style={{ animationDelay: '0.15s' }}></div>
+                  <div className="w-2 h-2 bg-blue-400 rounded-full animate-typing-bounce" style={{ animationDelay: '0.3s' }}></div>
                 </div>
               </div>
             )}
@@ -230,7 +232,7 @@ export default function FloatingChatBot() {
           <div className="relative z-10 p-5 bg-gradient-to-t from-slate-900/90 to-transparent">
             <form
               onSubmit={handleSendMessage}
-              className="relative flex gap-2 items-center bg-slate-900/50 p-1.5 rounded-full border border-white/10 shadow-xl backdrop-blur-xl focus-within:border-cyan-500/50 focus-within:ring-1 focus-within:ring-cyan-500/20 transition-all duration-300"
+              className="relative flex gap-2 items-center bg-slate-900/50 p-1.5 rounded-full border border-white/10 shadow-xl backdrop-blur-xl focus-within:border-cyan-500/50 focus-within:ring-1 focus-within:ring-cyan-500/20 focus-within:shadow-[0_0_20px_rgba(6,182,212,0.15)] transition-all duration-300"
             >
               <Input
                 value={input}
@@ -248,7 +250,7 @@ export default function FloatingChatBot() {
               </Button>
             </form>
             <div className="text-center mt-2">
-              <p className="text-[10px] text-slate-500 font-medium">Powered by <span className="text-cyan-400/80">DeepSeek AI</span></p>
+              <p className="text-[10px] text-slate-500 font-medium">Powered by <span className="text-cyan-400/80 animate-pulse">DeepSeek AI</span></p>
             </div>
           </div>
         </div>
